@@ -13,7 +13,7 @@ const NavBar = (props) => (
 
 
     <div className={classes.Navbar}>
-        <Link to="/" exact>
+        <Link to="/" >
             <img src={logo} alt="printer logo" />
         </Link>
         <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
