@@ -21,7 +21,6 @@ class ShopPage extends Component {
         console.log('shop renders ', this.state.products)
         return (
             <div>
-                <h1>Shop Page</h1>
                 <Products products={this.state.products} />
             </div>
         )
