@@ -23,15 +23,19 @@ class ShopPage extends Component {
                 <div>
                    <ol>
                        { this.state.products.map( (el) => {
-                        return <li>Product Type: {el.type}  Product ID: {el.id}</li>   
+                        return <li key={el.id} >Product Type: {el.type}  Product ID: {el.id}</li>   
                        })}
                    </ol>
                 </div>
             )
         }
+        // components ideally should do only one thing
+        // collect data from the web
+        // pass it to products comp
+            // display list of products
 
 
-        console.log('did mount ', this.state.products)
+        console.log('shop renders ', this.state.products)
         return (
             <div>
                 <h1>Shop Page</h1>
