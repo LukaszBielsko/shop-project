@@ -6,12 +6,13 @@ import './App.css';
 import Footer from './components/Navigation/Footer/Footer';
 import LandingPage from './containters/LandingPage/LandingPage';
 import NavigationBar from './components/Navigation/NavigationBar/NavigationBar';
-import CartPage from './components/Cart/Cart';
-import OrdersPage from './components/Orders/Orders';
-import InventoryPage from './components/Inventory/InventoryPage';
-import ShopPage from './components/Shop/ShopPage';
+import CartPage from './components/CartPage/CartPage';
+import OrdersPage from './components/OrdersPage/OrdersPage';
+import InventoryPage from './components/InventoryPage/InventoryPage';
+import ShopPage from './containters/ShopPage/ShopPage';
 
 function App() {
+    console.log("APP renders")
     return (
         <BrowserRouter>
             <NavigationBar />

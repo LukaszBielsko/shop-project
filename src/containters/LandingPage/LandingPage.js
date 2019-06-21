@@ -3,7 +3,7 @@ import LogingPage from '../../components/LoginPage/LoginPage';
 import { Route } from 'react-router-dom';
 import classes from './LandingPage.module.css'
 
-import RegisterPage from '../../components/RegisterPage/RegisterPage';
+// import RegisterPage from '../../components/RegisterPage/RegisterPage';
 
 class LandingPage extends Component {
     render() {
