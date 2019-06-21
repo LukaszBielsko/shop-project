@@ -6,7 +6,7 @@ class Product extends Component {
 
     state = {
         availability: null,
-        endPrice: '$$$',
+        endPrice: '...',
         howManyProducts: null
     }
 
@@ -33,11 +33,16 @@ class Product extends Component {
 
     quantityInputHandler = (event) => {
         let input = parseInt(event.target.value)
-        const fullPrice = input * this.props.productData.price
+        let fullPrice = input * this.props.productData.price
+
         if (input > this.props.productData.inStock) {
-            alert('Not enough items in stock');
+            alert('Sorry, not enough items in stock.');
             event.target.value = Math.floor(input / 10)
             return;
+        }
+
+        if (isNaN(fullPrice)){
+            fullPrice = '...'
         }
 
         this.setState({ endPrice: fullPrice, howManyProducts: input })
@@ -57,7 +62,7 @@ class Product extends Component {
                         onChange={this.quantityInputHandler}
                     ></input>
                 </div>
-                <p> Price for {this.state.howManyProducts} items: {this.state.endPrice} </p>
+                <p> Price for all items: {this.state.endPrice} </p>
                 <button>Add to cart</button>
             </div>
         )
