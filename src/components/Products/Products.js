@@ -10,7 +10,7 @@ const Products = (props) => {
             {props.products.map((product) => {
                 return <Product
                     key={product.id}
-                    productInfo={product} />
+                    productData={product} />
             })}
         </div>
     );
