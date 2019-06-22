@@ -15,7 +15,7 @@ class Product extends Component {
     }
 
     checkAvailability = () => {
-        const product = this.props.productData
+        const product = this.props.productData  
         let availability;
 
         if (product.inStock === 0) {
@@ -37,7 +37,7 @@ class Product extends Component {
 
         if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
-            event.target.value = Math.floor(input / 10)
+            event.target.value = Math.floor(input / 10) // TODO: shows 0 when number entered is less then 10
             return;
         }
 
@@ -51,8 +51,8 @@ class Product extends Component {
     render() {
         return (
             <div className={classes.Product}>
-                <p>Availability: {this.state.availability} </p>
                 <p> Product type: {this.props.productData.type}</p>
+                <p>Availability: {this.state.availability} </p>
                 <p> Product name: {this.props.productData.name}</p>
                 <p> Price per unit: {this.props.productData.price} </p>
                 <div>
@@ -78,12 +78,12 @@ export default Product;
     price
     inStock
 
-    - When user wants to buy more items than in supply then display error message
     - After clicking "add to cart" the order position should be added to the "Cart".
-
-
-
-
+    
+    
+    
+    
+    - When user wants to buy more items than in supply then display error message
     - Display price per unit and price depending on the number of ordered items
     - Each product should allow ordering multiple pieces (the price should be calculated on the fly)
 

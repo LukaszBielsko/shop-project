@@ -3,8 +3,6 @@ import React from 'react';
 import Product from './Product/Product';
 
 const Products = (props) => {
-    console.log("products props")
-    console.log(props.products)
     return (
         <div>
             {props.products.map((product) => {

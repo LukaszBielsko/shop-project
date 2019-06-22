@@ -13,7 +13,6 @@ class LoginPage extends Component {
     }
 
     handleSubmit = (event) => {
-        console.log(this.state.userName)
         event.preventDefault()
     }
 

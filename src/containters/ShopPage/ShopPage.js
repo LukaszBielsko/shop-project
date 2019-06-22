@@ -14,11 +14,9 @@ class ShopPage extends Component {
             .then(response => {
                 this.setState({ products: response.data })
             })
-            console.log('shop did mount')
     }
 
     render() {
-        console.log('shop renders ', this.state.products)
         return (
             <div>
                 <Products products={this.state.products} />

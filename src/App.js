@@ -12,7 +12,7 @@ import InventoryPage from './components/InventoryPage/InventoryPage';
 import ShopPage from './containters/ShopPage/ShopPage';
 
 function App() {
-    console.log("APP renders")
+
     return (
         <BrowserRouter>
             <NavigationBar />
