@@ -63,7 +63,7 @@ class Product extends Component {
                     ></input>
                 </div>
                 <p> Price for all items: {this.state.endPrice} </p>
-                <button>Add to cart</button>
+                <button onClick={ () => this.props.add(this.props.productData.id)}>Add to cart</button>
             </div>
         )
     }
