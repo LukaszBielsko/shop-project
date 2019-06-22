@@ -15,7 +15,7 @@ class Product extends Component {
     }
 
     checkAvailability = () => {
-        const product = this.props.productData  
+        const product = this.props.productData
         let availability;
 
         if (product.inStock === 0) {
@@ -41,7 +41,7 @@ class Product extends Component {
             return;
         }
 
-        if (isNaN(fullPrice)){
+        if (isNaN(fullPrice)) {
             fullPrice = '...'
         }
 
@@ -59,11 +59,13 @@ class Product extends Component {
                     How many would you like to order:
                 <input
                         type="number"
-                        onChange={this.quantityInputHandler}
-                    ></input>
+                        onChange={this.quantityInputHandler} >
+                </input>
                 </div>
                 <p> Price for all items: {this.state.endPrice} </p>
-                <button onClick={ () => this.props.add(this.props.productData.id)}>Add to cart</button>
+                <button onClick={() => this.props.add(this.props.productData.id, this.state.howManyProducts)}>
+                    Add to cart
+                </button>
             </div>
         )
     }
@@ -79,10 +81,10 @@ export default Product;
     inStock
 
     - After clicking "add to cart" the order position should be added to the "Cart".
-    
-    
-    
-    
+
+
+
+
     - When user wants to buy more items than in supply then display error message
     - Display price per unit and price depending on the number of ordered items
     - Each product should allow ordering multiple pieces (the price should be calculated on the fly)

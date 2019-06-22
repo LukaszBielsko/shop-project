@@ -21,29 +21,30 @@ class MainShop extends Component {
             })
     }
 
-    addToCartHandler = (id) => {
-        console.log('added: ' + id)
-        const addedProduct = this.state.products.find( (el) => el.id === id )
+    addToCartHandler = (id, pieces) => {
+        const addedProduct = {...this.state.products.find((el) => el.id === id), pieces: pieces}
         const addedProducts = [...this.state.addedToCart]
         addedProducts.push(addedProduct)
-        this.setState({addedToCart: addedProducts})
+        this.setState({ addedToCart: addedProducts })
     }
 
 
     render() {
-        console.log(this.state.products)
-        console.log(this.state.addedToCart)
         return (
             <div>
                 {/* <Route path='/shop' component={ShopPage} products={this.state.products} /> */}
                 <Route
                     path='/shop'
-                    render={(props) => <ShopPage 
-                        products={this.state.products} 
+                    render={(props) => <ShopPage
+                        products={this.state.products}
                         add={this.addToCartHandler}
-                        />}
+                    />}
                 />
-                <Route path='/cart' component={CartPage} />
+                <Route
+                    path='/cart'
+                    render={(props) => <CartPage
+                        addedToCart={this.state.addedToCart}
+                    />} />
                 <Route path='/orders' component={OrdersPage} />
                 <Route path='/inventory' component={InventoryPage} />
             </div>
