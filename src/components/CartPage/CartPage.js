@@ -37,7 +37,7 @@ class Cart extends Component {
                 </table>
                 <p>Summary price: {summaryPrice} </p>
                 <Link to='/orders'>
-                    <button> Buy {`<redirects to Orders>`}</button>
+                    <button onClick={() => this.props.checkoutOrder(summaryPrice)}> Buy {`<redirects to Orders>`}</button>
                 </Link>
             </>
         )
@@ -45,6 +45,3 @@ class Cart extends Component {
 }
 
 export default Cart;
-
-/*  After clicking "Add to cart" the selected item, number of pieces,
- price per unit and total price should be displayed. */
