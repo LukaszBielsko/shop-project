@@ -5,7 +5,7 @@ class Cart extends Component {
 
         let productsInCart = this.props.addedToCart.map((product) => {
             return (
-                <tr>
+                <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>{product.pieces}</td>
                     <td>{product.price}</td>
@@ -14,8 +14,10 @@ class Cart extends Component {
             )
         })
 
+        const reducer = (accumulator, element) => accumulator + (element.price * element.pieces)
+        const summaryPrice = this.props.addedToCart.reduce(reducer, 0)
+
         return (
-            this.props.addedToCart.lentgh === 0  ? <h3>No products in the cart. </h3> :
             <>
                 <table>
                     <thead>
@@ -33,6 +35,7 @@ class Cart extends Component {
                         {productsInCart}
                     </tbody>
                 </table>
+                <p>Summary price: {summaryPrice} </p>
                 <Link to='/orders'>
                     <button> Buy {`<redirects to Orders>`}</button>
                 </Link>
