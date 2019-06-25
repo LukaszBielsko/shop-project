@@ -15,7 +15,8 @@ class MainShop extends Component {
         newOrder: {
             order: [],
             summaryPrice: null
-        }
+        },
+        orders: []
     }
 
     componentDidMount() {
@@ -34,10 +35,16 @@ class MainShop extends Component {
 
     checkoutCartHandler = (summaryPrice) => {
         const order = [...this.state.addedToCart]
-        this.setState({newOrder: {order: order, summaryPrice: summaryPrice}, addedToCart: []})
+        const orders = [...this.state.orders]
+        orders.push({ order: order, summaryPrice: summaryPrice })
+        this.setState({
+            newOrder: { order: order, summaryPrice: summaryPrice },
+            addedToCart: [],
+            orders: orders
+        })
     }
 
-    checkState = () => console.log(this.state) 
+    checkState = () => console.log(this.state)
 
 
     render() {
@@ -57,7 +64,9 @@ class MainShop extends Component {
                         addedToCart={this.state.addedToCart}
                         checkoutOrder={this.checkoutCartHandler} />}
                 />
-                <Route path='/orders' component={OrdersPage} />
+                <Route path='/orders' render={() => <OrdersPage
+                    orders={this.state.orders.order} /> }
+                />
                 <Route path='/inventory' component={InventoryPage} />
             </div>
         )
