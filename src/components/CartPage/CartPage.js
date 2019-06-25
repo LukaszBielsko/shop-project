@@ -15,6 +15,7 @@ class Cart extends Component {
         })
 
         return (
+            this.props.addedToCart.lentgh === 0  ? <h3>No products in the cart. </h3> :
             <>
                 <table>
                     <thead>

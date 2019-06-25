@@ -22,7 +22,7 @@ class MainShop extends Component {
     }
 
     addToCartHandler = (id, pieces) => {
-        const addedProduct = {...this.state.products.find((el) => el.id === id), pieces: pieces}
+        const addedProduct = { ...this.state.products.find((el) => el.id === id), pieces: pieces }
         const addedProducts = [...this.state.addedToCart]
         addedProducts.push(addedProduct)
         this.setState({ addedToCart: addedProducts })
@@ -32,7 +32,6 @@ class MainShop extends Component {
     render() {
         return (
             <div>
-                {/* <Route path='/shop' component={ShopPage} products={this.state.products} /> */}
                 <Route
                     path='/shop'
                     render={(props) => <ShopPage
@@ -42,9 +41,9 @@ class MainShop extends Component {
                 />
                 <Route
                     path='/cart'
-                    render={(props) => <CartPage
-                        addedToCart={this.state.addedToCart}
-                    />} />
+                    render={() => <CartPage
+                        addedToCart={this.state.addedToCart} />}
+                />
                 <Route path='/orders' component={OrdersPage} />
                 <Route path='/inventory' component={InventoryPage} />
             </div>
