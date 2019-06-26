@@ -4,14 +4,20 @@ import ProductsTable from '../ProductsTable/ProductsTable';
 
 class Orders extends Component {
 
-    showProps = () => console.log(this.props.orders)
+    showProps = () => console.log(this.props.orders.map((el) => el.order))
 
     render() {
+
+        let plainOrder = this.props.orders.map((el) => el.order);
+        console.log(plainOrder)
+
         let orders = this.props.orders.map((or, index) => {
             return (
                 <>
                     <h3>Order no:{index}</h3>
-                    <ProductsTable products={this.props.orders} />
+                    <ProductsTable 
+                    products={plainOrder}
+                    title="Ordered products" />
                     <h4>Summary price: {or.summaryPrice}</h4>
                 </>
             )

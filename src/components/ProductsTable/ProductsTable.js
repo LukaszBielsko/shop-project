@@ -3,12 +3,11 @@ import React from 'react';
 import ProductRow from '../ProductsTable/ProductRow/ProductRow';
 
 const ProductsTable = (props) => {
-//array of products as props
     return (
         <table>
             <thead>
                 <tr>
-                    <th colSpan="4">Products in your cart</th>
+                    <th colSpan="4"> {props.title} </th>
                 </tr>
                 <tr>
                     <th>Product</th>
@@ -18,7 +17,7 @@ const ProductsTable = (props) => {
                 </tr>
             </thead>
             <tbody>
-                <ProductRow products={props.products}/> 
+                <ProductRow products={props.products} />
             </tbody>
         </table>
     );
