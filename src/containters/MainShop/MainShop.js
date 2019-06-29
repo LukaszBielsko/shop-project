@@ -12,7 +12,52 @@ class MainShop extends Component {
     state = {
         products: [],
         addedToCart: [],
-        orders: []
+        orders: [
+            {
+                order: [
+                    {
+                        "id": "product-1",
+                        "type": "Printer",
+                        "name": "ZX3",
+                        "price": "400",
+                        "pieces": 20,
+                        "inStock": "30"
+                    },
+                    {
+                        "id": "product-2",
+                        "type": "Printer",
+                        "name": "ZX5",
+                        "price": "600",
+                        "pieces": 33,
+                        "inStock": "5"
+                    }
+                ],
+                summaryPrice: 666
+            },
+            {
+                order: [
+                    {
+                        "id": "product-1",
+                        "type": "Printer",
+                        "name": "ZX3",
+                        "price": "400",
+                        "pieces": 20,
+                        "inStock": "30"
+                    },
+                    {
+                        "id": "product-2",
+                        "type": "Printer",
+                        "name": "ZX5",
+                        "price": "600",
+                        "pieces": 33,
+                        "inStock": "5"
+                    }
+                ],
+                summaryPrice: 666
+            }
+
+
+        ]
     }
 
     componentDidMount() {
@@ -61,7 +106,7 @@ class MainShop extends Component {
                         checkoutOrder={this.checkoutCartHandler} />}
                 />
                 <Route path='/orders' render={() => <OrdersPage
-                    orders={this.state.orders} /> }
+                    orders={this.state.orders} />}
                 />
                 <Route path='/inventory' component={InventoryPage} />
             </div>

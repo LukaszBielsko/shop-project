@@ -2,20 +2,14 @@ import React from 'react';
 
 const ProductRow = (props) => {
     return (
-        props.products.map((product) => (
+        props.products.map((product, index) => (
             <>
-                <tr key={product.id}>
+                <tr key={product.id + index}>
                     <td>{product.name}</td>
                     <td>{product.pieces}</td>
                     <td>{product.price}</td>
                     <td>{product.pieces * product.price}</td>
                 </tr>
-                <tr key={product.id} >
-                    <td>{typeof product.name}</td>
-                    <td>{typeof product.pieces}</td>
-                    <td>{typeof product.price}</td>
-                    <td>{typeof (product.pieces * product.price)}</td>
-                </tr >
             </>
         )
         )

@@ -8,18 +8,15 @@ class Orders extends Component {
 
     render() {
 
-        let plainOrder = this.props.orders.map((el) => el.order);
-        console.log(plainOrder)
-
-        let orders = this.props.orders.map((or, index) => {
+        let orders = this.props.orders.map((order, index) => {
             return (
-                <>
-                    <h3>Order no:{index}</h3>
-                    <ProductsTable 
-                    products={plainOrder}
-                    title="Ordered products" />
-                    <h4>Summary price: {or.summaryPrice}</h4>
-                </>
+                <div key={index}>
+                    <h3>Order no:{index + 1}</h3>
+                    <ProductsTable
+                        products={order.order}
+                        title="Ordered products" />
+                    <h4>Summary price: {order.summaryPrice}</h4>
+                </div>
             )
         })
 
@@ -34,5 +31,3 @@ class Orders extends Component {
 }
 
 export default Orders;
-
-//  {order: order, summaryPrice: summaryPrice}
