@@ -14,8 +14,8 @@ function App() {
     return (
         <BrowserRouter>
             <NavigationBar />
-            <MainShop/>
             <LandingPage />
+            <MainShop/>
             <Footer />
         </BrowserRouter>
     );

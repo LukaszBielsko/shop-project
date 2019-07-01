@@ -47,23 +47,22 @@ class MainShop extends Component {
         return (
             <div>
                 <button onClick={this.checkState}>click for the state</button>
-                <Route
-                    path='/shop'
+                <Route path='/shop'
                     render={(props) => <ShopPage
                         products={this.state.products}
-                        add={this.addToCartHandler}
-                    />}
+                        add={this.addToCartHandler} />}
                 />
-                <Route
-                    path='/cart'
+                <Route path='/cart'
                     render={() => <CartPage
                         addedToCart={this.state.addedToCart}
                         checkoutOrder={this.checkoutCartHandler} />}
                 />
-                <Route path='/orders' render={() => <OrdersPage
-                    orders={this.state.orders} />}
+                <Route path='/orders'
+                    render={() => <OrdersPage
+                        orders={this.state.orders} />}
                 />
-                <Route path='/inventory' component={InventoryPage} />
+                <Route path='/inventory'
+                    component={InventoryPage} />
             </div>
         )
     }

@@ -47,7 +47,9 @@ class LoginPage extends Component {
                             required />
                     </label>
                     <input type="submit" value="Login" />
-                   <Link to="/register-page">register</Link>
+                   <Link to="/register-page">
+                       <button> Register </button>
+                   </Link>
                    <Route path="/register-page" component={RegisterPage} />
                 </form>
             </div >
