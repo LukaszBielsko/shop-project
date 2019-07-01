@@ -50,7 +50,6 @@ class LoginPage extends Component {
                    <Link to="/register-page">
                        <button> Register </button>
                    </Link>
-                   <Route path="/register-page" component={RegisterPage} />
                 </form>
             </div >
         );
