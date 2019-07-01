@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import RegisterPage from '../RegisterPage/RegisterPage';
-
+import { Link } from 'react-router-dom';
 
 import classes from './LoginPage.module.css';
 

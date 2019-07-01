@@ -7,7 +7,8 @@ class Product extends Component {
     state = {
         availability: null,
         endPrice: '...',
-        howManyProducts: null
+        howManyProducts: null,
+        disableButton: true
     }
 
     componentDidMount() {
@@ -35,6 +36,13 @@ class Product extends Component {
         let input = parseInt(event.target.value)
         let fullPrice = input * this.props.productData.price
 
+        if (input <= 0) {
+            this.setState({ disableButton: true })
+            console.log('input <= 0')
+        } else {
+            this.setState({ disableButton: false })
+        }
+
         if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
             event.target.value = Math.floor(input / 10) // TODO: shows 0 when number entered is less then 10
@@ -60,10 +68,13 @@ class Product extends Component {
                 <input
                         type="number"
                         onChange={this.quantityInputHandler} >
-                </input>
+                    </input>
                 </div>
                 <p> Price for all items: {this.state.endPrice} </p>
-                <button onClick={() => this.props.add(this.props.productData.id, this.state.howManyProducts)}>
+                <button
+                    onClick={() => this.props.add(this.props.productData.id, this.state.howManyProducts)}
+                    disabled={this.state.disableButton}
+                    min="0">
                     Add to cart
                 </button>
             </div>
@@ -72,28 +83,3 @@ class Product extends Component {
 }
 
 export default Product;
-
-/*
-    id
-    type
-    name
-    price
-    inStock
-
-    - After clicking "add to cart" the order position should be added to the "Cart".
-
-
-
-
-    - When user wants to buy more items than in supply then display error message
-    - Display price per unit and price depending on the number of ordered items
-    - Each product should allow ordering multiple pieces (the price should be calculated on the fly)
-
-    - Amount in stock should not be displayed as exact number, but should be groups:
-    - 0 - not available
-    - 1-10 - last pieces
-    - 11 - 100 - medium supply
-    - over 100 - full supply
-
-    -  For every product display group and name, price, input for number of items to order, price, price multiplied by the selected number,     rough amount of items in stock, and "add to cart" button.
-*/
