@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import CartPage from '../../components/CartPage/CartPage';
@@ -47,22 +47,24 @@ class MainShop extends Component {
         return (
             <div>
                 <button onClick={this.checkState}>click for the state</button>
-                <Route path='/shop'
-                    render={(props) => <ShopPage
-                        products={this.state.products}
-                        add={this.addToCartHandler} />}
-                />
-                <Route path='/cart'
-                    render={() => <CartPage
-                        addedToCart={this.state.addedToCart}
-                        checkoutOrder={this.checkoutCartHandler} />}
-                />
-                <Route path='/orders'
-                    render={() => <OrdersPage
-                        orders={this.state.orders} />}
-                />
-                <Route path='/inventory'
-                    component={InventoryPage} />
+                <Switch>
+                    <Route path='/shop'
+                        render={(props) => <ShopPage
+                            products={this.state.products}
+                            add={this.addToCartHandler} />}
+                    />
+                    <Route path='/cart'
+                        render={() => <CartPage
+                            addedToCart={this.state.addedToCart}
+                            checkoutOrder={this.checkoutCartHandler} />}
+                    />
+                    <Route path='/orders'
+                        render={() => <OrdersPage
+                            orders={this.state.orders} />}
+                    />
+                    <Route path='/inventory'
+                        component={InventoryPage} />
+                </Switch>
             </div>
         )
     }
