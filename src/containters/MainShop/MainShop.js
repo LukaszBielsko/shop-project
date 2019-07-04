@@ -32,10 +32,9 @@ class MainShop extends Component {
 
     checkoutCartHandler = (summaryPrice) => {
         const order = [...this.state.addedToCart]
-        const orders = [...this.state.orders]
-        orders.push({ order: order, summaryPrice: summaryPrice })
+        const orders = [...this.state.orders, {order, summaryPrice}]
         this.setState({
-            orders: orders,
+            orders,
             addedToCart: []
         })
     }
