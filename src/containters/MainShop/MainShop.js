@@ -24,10 +24,14 @@ class MainShop extends Component {
 
 
     addToCartHandler = (id, pieces) => {
-        const addedProduct = { ...this.state.products.find((el) => el.id === id), pieces: pieces }
-        const addedToCart = [...this.state.addedToCart]
-        addedToCart.push(addedProduct)
-        this.setState({ addedToCart: addedToCart })
+        this.setState((prevState) => {
+            const product = prevState.products.find(el => el.id === id);
+            return { addedToCart: [...prevState.addedToCart, { ...product, pieces }] };
+        });
+        // const addedProduct = { ...this.state.products.find((el) => el.id === id), pieces: pieces }
+        // const addedToCart = [...this.state.addedToCart]
+        // addedToCart.push(addedProduct)
+        // this.setState({ addedToCart: addedToCart })
     }
 
     checkoutCartHandler = (summaryPrice) => {
