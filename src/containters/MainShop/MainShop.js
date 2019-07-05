@@ -29,18 +29,19 @@ class MainShop extends Component {
             return { addedToCart: [...prevState.addedToCart, { ...product, pieces }] };
         });
         /*  TODO: Problem occurs when addedToCart is passed to orders component
-        Ponadto, żeby nie duplikować danych to addedToCard powinno mieć tylko ID od produktu i ilość sztuk.
-        addToCartHandler = (id, pieces) => {
-            this.setState((products, addedToCart) => {
-                return { addedToCart: [...addedToCart, { id, pieces }] };
-            });
-        }
+            Ponadto, żeby nie duplikować danych to addedToCard powinno mieć tylko ID od produktu i ilość sztuk.
+            addToCartHandler = (id, pieces) => {
+                this.setState((products, addedToCart) => {
+                    return { addedToCart: [...addedToCart, { id, pieces }] };
+                });
+            }
+            
+            Initial code version
+            const addedProduct = { ...this.state.products.find((el) => el.id === id), pieces: pieces }
+            const addedToCart = [...this.state.addedToCart]
+            addedToCart.push(addedProduct)
+            this.setState({ addedToCart: addedToCart })
         */
-
-        // const addedProduct = { ...this.state.products.find((el) => el.id === id), pieces: pieces }
-        // const addedToCart = [...this.state.addedToCart]
-        // addedToCart.push(addedProduct)
-        // this.setState({ addedToCart: addedToCart })
     }
 
     checkoutCartHandler = (summaryPrice) => {
@@ -56,7 +57,7 @@ class MainShop extends Component {
     /* React devtools installed earlier on.
     Made this only for convenience, as it's 
     quicker than clicking into react dev tools
-    each time the code changes / page refresh  */
+    each time the code changes / page refreshes  */
     checkState = () => console.log(this.state)
 
 

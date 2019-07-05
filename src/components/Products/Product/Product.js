@@ -11,9 +11,11 @@ class Product extends Component {
         disableButton: true
     }
 
-    // static getDerivedStateFromProps() {
-    //     this.checkAvailability()
-    // }
+    static getDerivedStateFromProps() {
+        // this.checkAvailability()
+        console.log('get derived state')
+        return { }
+    }
 
     checkAvailability = () => {
         const { inStock } = this.props.productData
@@ -57,7 +59,7 @@ class Product extends Component {
 
     render() {
         const product = this.props.productData
-        
+
         return (
             <div className={classes.Product}>
                 <p> Product type: {product.type}</p>
