@@ -5,20 +5,20 @@ import classes from './Product.module.css';
 class Product extends Component {
 
     state = {
-        availability: null,
         endPrice: 0,
         howManyProducts: null,
-        disableButton: true
+        disableButton: true,
+        inStock: null
     }
 
-    static getDerivedStateFromProps() {
-        // this.checkAvailability()
-        console.log('get derived state')
-        return { }
+    static getDerivedStateFromProps(props){
+        const {inStock} = props.productData 
+        return {
+            inStock
+        }
     }
 
-    checkAvailability = () => {
-        const { inStock } = this.props.productData
+    checkAvailability = (inStock) => {
         let availability;
 
         if (inStock > 101) {
@@ -31,7 +31,7 @@ class Product extends Component {
             availability = 'not available'
         }
 
-        this.setState({ availability })
+        return availability;
     }
 
     quantityInputHandler = (event) => {
@@ -57,13 +57,15 @@ class Product extends Component {
         this.setState({ endPrice, howManyProducts: input })
     }
 
+
     render() {
         const product = this.props.productData
+        const availability = this.checkAvailability(this.state.inStock)
 
         return (
             <div className={classes.Product}>
                 <p> Product type: {product.type}</p>
-                <p>Availability: {this.state.availability} </p>
+                <p>Availability: {availability}   </p>
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
                 <div>
