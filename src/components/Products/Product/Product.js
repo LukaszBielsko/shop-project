@@ -6,14 +6,14 @@ class Product extends Component {
 
     state = {
         availability: null,
-        endPrice: '...',
+        endPrice: 0,
         howManyProducts: null,
         disableButton: true
     }
 
-    componentDidMount() {
-        this.checkAvailability()
-    }
+    // static getDerivedStateFromProps() {
+    //     this.checkAvailability()
+    // }
 
     checkAvailability = () => {
         const { inStock } = this.props.productData
@@ -28,17 +28,16 @@ class Product extends Component {
         } else if (inStock === 0) {
             availability = 'not available'
         }
-        
+
         this.setState({ availability })
     }
 
     quantityInputHandler = (event) => {
-        let input = parseInt(event.target.value)
-        let fullPrice = input * this.props.productData.price
+        const input = parseInt(event.target.value)
+        let endPrice = input * this.props.productData.price
 
         if (input <= 0) {
             this.setState({ disableButton: true })
-            console.log('input <= 0')
         } else {
             this.setState({ disableButton: false })
         }
@@ -49,20 +48,22 @@ class Product extends Component {
             return;
         }
 
-        if (isNaN(fullPrice)) {
-            fullPrice = '...'
+        if (isNaN(endPrice)) {
+            endPrice = 0
         }
 
-        this.setState({ endPrice: fullPrice, howManyProducts: input })
+        this.setState({ endPrice, howManyProducts: input })
     }
 
     render() {
+        const product = this.props.productData
+        
         return (
             <div className={classes.Product}>
-                <p> Product type: {this.props.productData.type}</p>
+                <p> Product type: {product.type}</p>
                 <p>Availability: {this.state.availability} </p>
-                <p> Product name: {this.props.productData.name}</p>
-                <p> Price per unit: {this.props.productData.price} </p>
+                <p> Product name: {product.name}</p>
+                <p> Price per unit: {product.price} </p>
                 <div>
                     How many would you like to order:
                 <input
@@ -72,7 +73,7 @@ class Product extends Component {
                 </div>
                 <p> Price for all items: {this.state.endPrice} </p>
                 <button
-                    onClick={() => this.props.add(this.props.productData.id, this.state.howManyProducts)}
+                    onClick={() => this.props.add(product.id, this.state.howManyProducts)}
                     disabled={this.state.disableButton}
                     min="0">
                     Add to cart
