@@ -16,20 +16,20 @@ class Product extends Component {
     }
 
     checkAvailability = () => {
-        const product = this.props.productData
+        const { inStock } = this.props.productData
         let availability;
 
-        if (product.inStock === 0) {
-            availability = 'not available'
-        } else if (product.inStock > 1 && product.inStock <= 10) {
-            availability = 'last pieces'
-        } else if (product.inStock > 11 && product.inStock <= 100) {
-            availability = 'medium supply'
-        } else if (product.inStock > 101) {
+        if (inStock > 101) {
             availability = 'full supply'
+        } else if (inStock <= 100) {
+            availability = 'medium supply'
+        } else if (inStock <= 10){
+            availability = 'last pieces'
+        } else if (inStock === 0) {
+            availability = 'not available'
         }
-
-        this.setState({ availability: availability })
+        
+        this.setState({ availability })
     }
 
     quantityInputHandler = (event) => {
