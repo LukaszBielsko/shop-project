@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
-import axios from 'axios';
 
 import CartPage from '../../components/CartPage/CartPage';
 import OrdersPage from '../../components/OrdersPage/OrdersPage';
 import InventoryPage from '../../components/InventoryPage/InventoryPage';
 import ShopPage from '../../components/ShopPage/ShopPage';
+
 
 class MainShop extends Component {
 
@@ -16,10 +16,9 @@ class MainShop extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/products')
-            .then(response => {
-                this.setState({ products: response.data })
-            })
+        const ref = this.props.firebase.db.ref('products')
+        ref.once('value')
+            .then((data) => this.setState({products: data.val()}))
     }
 
 
@@ -57,7 +56,8 @@ class MainShop extends Component {
     /* React devtools installed earlier on.
     Made this only for convenience, as it's 
     quicker than clicking into react dev tools
-    each time the code changes / page refreshes  */
+    and then to desired component each time 
+    the code changes / page refreshes  */
     checkState = () => console.log(this.state)
 
 

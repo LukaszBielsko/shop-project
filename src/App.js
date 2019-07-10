@@ -8,6 +8,8 @@ import LandingPage from './containters/LandingPage/LandingPage';
 import NavigationBar from './components/Navigation/NavigationBar/NavigationBar';
 import MainShop from './containters/MainShop/MainShop';
 
+import {FirebaseContext} from './components/Firebase/index';
+
 
 function App() {
 
@@ -15,7 +17,9 @@ function App() {
         <BrowserRouter>
             <NavigationBar />
             <LandingPage />
-            <MainShop/>
+            <FirebaseContext.Consumer>
+               { firebase =>  <MainShop firebase={firebase}/>}
+            </FirebaseContext.Consumer>
             <Footer />
         </BrowserRouter>
     );
