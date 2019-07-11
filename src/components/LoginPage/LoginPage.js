@@ -11,8 +11,10 @@ class LoginPage extends Component {
     }
 
     handleSubmit = (event) => {
+        this.props.firebase.doSignInWithEmailAndPassword(this.state.userName, this.state.password)
+            .then( res => console.log(res))
+            .catch( error => console.log(error.code))
         event.preventDefault()
-        
     }
 
     handleInput = (event) => {
