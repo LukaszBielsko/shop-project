@@ -12,14 +12,11 @@ class LoginPage extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
+        
     }
 
-    handleUserName = (event) => {
-        this.setState({ userName: event.target.value })
-    }
-
-    handlePassword = (event) => {
-        this.setState({ password: event.target.value })
+    handleInput = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
     }
 
     render() {
@@ -31,8 +28,8 @@ class LoginPage extends Component {
                         Username:
                         <input
                             className={classes.inputField}
-                            type="text" name='username'
-                            onChange={this.handleUserName}
+                            type="text" name='userName'
+                            onChange={this.handleInput}
                             required />
                     </label>
                     <label>
@@ -41,7 +38,7 @@ class LoginPage extends Component {
                             className={classes.inputField}
                             type="password"
                             name='password'
-                            onChange={this.handlePassword}
+                            onChange={this.handleInput}
                             required />
                     </label>
                     <input type="submit" value="Login" />
