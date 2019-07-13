@@ -48,6 +48,7 @@ class LoginPage extends Component {
                        <button> Register </button>
                    </Link>
                 </form>
+                <button onClick={this.props.firebase.doSignOut}> LOG OUT</button>
             </div >
         );
     }

@@ -10,21 +10,19 @@ let styles = {
 };
 
 const NavBar = (props) => (
-
-
     <div className={classes.Navbar}>
         <Link to="/" >
             <img src={logo} alt="printer logo" />
         </Link>
-        <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
-        <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
-        <NavLink to='/orders' className={classes.navLink} activeStyle={styles}> Orders</NavLink>
-        <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink>
-
-        {/* <Route path='/shop' component={ShopPage} />
-        <Route path='/cart' component={CartPage} />
-        <Route path='/orders' component={OrdersPage} />
-        <Route path='/inventory' component={InventoryPage} /> */}
+        {props.showLinks ?
+            <>
+                <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
+                <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
+                <NavLink to='/orders' className={classes.navLink} activeStyle={styles}> Orders</NavLink>
+                <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink>
+            </> 
+            : <p>Please log in.</p>
+        }
     </div>
 );
 

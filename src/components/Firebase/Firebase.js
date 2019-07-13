@@ -7,7 +7,7 @@ import config from '../../FirebaseDetails';
 
 const firebaseConfig = {
     apiKey: config.apiKey,
-    authDomain: config.authDomain, 
+    authDomain: config.authDomain,
     databaseURL: config.databaseURL,
     projectId: config.projectId,
     storageBucket: "",
@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 
 class Firebase {
-    constructor(){
+    constructor() {
         app.initializeApp(firebaseConfig);
 
         this.auth = app.auth();
@@ -30,9 +30,9 @@ class Firebase {
     doSignInWithEmailAndPassword = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password);
 
-    doSignOut = () => this.auth.signOut();
+    doSignOut = () => this.auth.signOut()
 
-    authChange = () => this.auth.onAuthStateChanged(); 
+    authChange = () => this.auth.onAuthStateChanged();
 
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
