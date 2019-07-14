@@ -14,15 +14,17 @@ const NavBar = (props) => (
         <Link to="/" >
             <img src={logo} alt="printer logo" />
         </Link>
+
         {props.showLinks ?
             <>
                 <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
                 <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
                 <NavLink to='/orders' className={classes.navLink} activeStyle={styles}> Orders</NavLink>
-                <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink>
-            </> 
+                {props.isAdmin ? <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink> : null}
+            </>
             : <p>Please log in.</p>
         }
+        
     </div>
 );
 

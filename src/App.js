@@ -12,6 +12,7 @@ class App extends Component {
 
     state = {
         isLoggedIn: null,
+        isAdmin: null,
         userInfo: null
     }
 
@@ -24,19 +25,26 @@ class App extends Component {
                     .then(snapshot => {
                         let users = snapshot.val()
                         let userInfo = users.find((el) => el.uid === user.uid)
-                        this.setState({ userInfo })
+                        this.setState({ userInfo, isAdmin: userInfo.role === 'admin' ? true : false })
                     })
+            } else {
+                this.setState({ isLoggedIn: false })
             }
         })
     }
 
 
     render() {
+        const {firebase} = this.props;
+        const {isLoggedIn, isAdmin} = this.state
+        
         return (
             <BrowserRouter>
-                <NavigationBar showLinks={this.state.isLoggedIn} />
+                <NavigationBar
+                    showLinks={isLoggedIn}
+                    isAdmin={isAdmin} />
                 <LandingPage />
-                <MainShop firebase={this.props.firebase} />
+                <MainShop firebase={firebase} />
                 <Footer />
             </BrowserRouter>
         );
