@@ -46,7 +46,7 @@ class Product extends Component {
 
         if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
-            event.target.value = Math.floor(input / 10) // TODO: shows 0 when number entered is less then 10
+            event.target.value = Math.floor(input / 10) // FIXME: shows 0 when number entered is less then 10
             return;
         }
 

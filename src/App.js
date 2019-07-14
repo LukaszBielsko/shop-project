@@ -11,17 +11,21 @@ import MainShop from './containters/MainShop/MainShop';
 class App extends Component {
 
     state = {
-        isLoggedIn: null
+        isLoggedIn: null,
+        userInfo: null
     }
 
-    componentDidMount(){
-        this.props.firebase.auth.onAuthStateChanged( user => {
-            if (user){
-                this.setState({ isLoggedIn: true})
-                console.log('isLoggedIn ' + this.state.isLoggedIn )
-            } else {
-                this.setState({ isLoggedIn: false})
-                console.log('isLoggedIn ' + this.state.isLoggedIn )
+    componentDidMount() {
+        this.props.firebase.auth.onAuthStateChanged(user => {
+            if (user) {
+                this.setState({ isLoggedIn: true })
+                const ref = this.props.firebase.db.ref('users/');
+                ref.once('value')
+                    .then(snapshot => {
+                        let users = snapshot.val()
+                        let userInfo = users.find((el) => el.uid === user.uid)
+                        this.setState({ userInfo })
+                    })
             }
         })
     }
@@ -30,7 +34,7 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <NavigationBar showLinks={this.state.isLoggedIn}/>
+                <NavigationBar showLinks={this.state.isLoggedIn} />
                 <LandingPage />
                 <MainShop firebase={this.props.firebase} />
                 <Footer />
@@ -40,13 +44,3 @@ class App extends Component {
 }
 
 export default App;
-
-/* TODO
-where auth info should be placed and how?
-    high up :)
-    context vs state passing
-
-where it will be passed?
-    navigation bar depends on auth user
-    inventory page (and some other feats) depends on user auht and user role
- */
