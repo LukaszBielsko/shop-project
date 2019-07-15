@@ -18,7 +18,7 @@ class MainShop extends Component {
     componentDidMount() {
         const ref = this.props.firebase.db.ref('products')
         ref.once('value')
-            .then((data) => this.setState({products: data.val()}))
+            .then((data) => this.setState({ products: data.val() }))
     }
 
 
@@ -62,26 +62,34 @@ class MainShop extends Component {
 
 
     render() {
+        const { orders, products, addedToCart } = this.state
+        const { isLoggedIn, isAdmin } = this.props
+
         return (
             <div>
-                <button onClick={this.checkState}>click for the state</button>
                 <Switch>
-                    <Route path='/shop'
-                        render={(props) => <ShopPage
-                            products={this.state.products}
-                            add={this.addToCartHandler} />}
-                    />
-                    <Route path='/cart'
-                        render={() => <CartPage
-                            addedToCart={this.state.addedToCart}
-                            checkoutOrder={this.checkoutCartHandler} />}
-                    />
-                    <Route path='/orders'
-                        render={() => <OrdersPage
-                            orders={this.state.orders} />}
-                    />
-                    <Route path='/inventory'
-                        component={InventoryPage} />
+                    {isLoggedIn ?
+                        <>
+                            <Route path='/shop'
+                                render={(props) => <ShopPage
+                                    products={products}
+                                    add={this.addToCartHandler} />}
+                            />
+                            <Route path='/cart'
+                                render={() => <CartPage
+                                    addedToCart={addedToCart}
+                                    checkoutOrder={this.checkoutCartHandler} />}
+                            />
+                            <Route path='/orders'
+                                render={() => <OrdersPage
+                                    orders={orders} />}
+                            />
+                            {isAdmin ? <Route path='/inventory'
+                                component={InventoryPage} /> : null}
+                        </>
+                        : null}
+                    <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} /> 
+                    {/* TODO: 404 renders only for not logged in users */}
                 </Switch>
             </div>
         )

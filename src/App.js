@@ -35,16 +35,19 @@ class App extends Component {
 
 
     render() {
-        const {firebase} = this.props;
-        const {isLoggedIn, isAdmin} = this.state
-        
+        const { firebase } = this.props;
+        const { isLoggedIn, isAdmin } = this.state
+
         return (
             <BrowserRouter>
                 <NavigationBar
                     showLinks={isLoggedIn}
                     isAdmin={isAdmin} />
                 <LandingPage />
-                <MainShop firebase={firebase} />
+                <MainShop
+                    firebase={firebase}
+                    isLoggedIn={isLoggedIn}
+                    isAdmin={isAdmin} />
                 <Footer />
             </BrowserRouter>
         );
