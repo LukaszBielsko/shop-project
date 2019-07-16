@@ -11,7 +11,7 @@ class Orders extends Component {
         let orders = this.props.orders.map((order, index) => {
             return (
                 <div key={index}>
-                    <h3>Order no:{index + 1}</h3>
+                    <h4>Order no:{index + 1} Created by {order.createdBy} at {order.date}</h4>
                     <ProductsTable
                         products={order.order}
                         title="Ordered products" />

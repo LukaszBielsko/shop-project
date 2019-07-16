@@ -36,6 +36,7 @@ class MainShop extends Component {
                 .then(data => {
                     const allOrders = data.val()
                     const allOrdersArray = Object.values(allOrders)
+                    // get the last item from array with list of all orders (firebase)
                     const orders = allOrdersArray[allOrdersArray.length - 1]
                     this.setState({ orders })
                 }).catch(err => console.log(err))
