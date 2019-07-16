@@ -36,7 +36,7 @@ class App extends Component {
 
     render() {
         const { firebase } = this.props;
-        const { isLoggedIn, isAdmin } = this.state
+        const { isLoggedIn, isAdmin, userInfo } = this.state
 
         return (
             <BrowserRouter>
@@ -47,7 +47,8 @@ class App extends Component {
                 <MainShop
                     firebase={firebase}
                     isLoggedIn={isLoggedIn}
-                    isAdmin={isAdmin} />
+                    isAdmin={isAdmin}
+                    userInfo={userInfo} />
                 <Footer />
             </BrowserRouter>
         );

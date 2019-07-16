@@ -4,7 +4,7 @@ import ProductsTable from '../ProductsTable/ProductsTable';
 
 class Orders extends Component {
 
-    showProps = () => console.log(this.props.orders.map((el) => el.order))
+    /* TODO  import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table' show table nicely :) */
 
     render() {
 
@@ -24,7 +24,6 @@ class Orders extends Component {
         return (
             <div>
                 {orders}
-                <button onClick={this.showProps}>  click for props </button>
             </div>
         )
     }

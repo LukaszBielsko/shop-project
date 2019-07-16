@@ -9,18 +9,38 @@ import ShopPage from '../../components/ShopPage/ShopPage';
 
 class MainShop extends Component {
 
-    state = {
-        products: [],
-        addedToCart: [],
-        orders: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            products: [],
+            addedToCart: [],
+            orders: []
+        }
     }
 
     componentDidMount() {
-        const ref = this.props.firebase.db.ref('products')
-        ref.once('value')
+        // get products
+        const productsRef = this.props.firebase.db.ref('products')
+        productsRef.once('value')
             .then((data) => this.setState({ products: data.val() }))
     }
 
+    componentDidUpdate(prevProps){
+        // compDidUp will run everytime new props are passed
+        // wait for the change of userInfo from null to object
+        // no other change will occur, so no worries that it will 
+        // run more than needed and cause infinite loop
+        if (this.props.userInfo !== prevProps.userInfo){
+            const ordersRef = this.props.firebase.db.ref(`example/${this.props.userInfo.companyId}`)
+            ordersRef.once('value')
+                .then(data => {
+                    const allOrders = data.val()
+                    const allOrdersArray = Object.values(allOrders)
+                    const orders = allOrdersArray[allOrdersArray.length - 1]
+                    this.setState({ orders })
+                }).catch(err => console.log(err))
+        }
+    }
 
     addToCartHandler = (id, pieces) => {
         this.setState((prevState) => {
@@ -44,8 +64,18 @@ class MainShop extends Component {
     }
 
     checkoutCartHandler = (summaryPrice) => {
+        const { userInfo } = this.props
         const order = [...this.state.addedToCart]
-        const orders = [...this.state.orders, { order, summaryPrice }]
+        const orders = [
+            ...this.state.orders,
+            {
+                order, summaryPrice,
+                company: userInfo.companyId, 
+                createdBy: userInfo.firstName + " " + userInfo.lastName,
+                //TODO proper date format needed
+                date: new Date().getTime() 
+            }]
+        this.props.firebase.db.ref(`example/${this.props.userInfo.companyId}`).push(orders)
         this.setState({
             orders,
             addedToCart: []
@@ -58,7 +88,7 @@ class MainShop extends Component {
     quicker than clicking into react dev tools
     and then to desired component each time 
     the code changes / page refreshes  */
-    checkState = () => console.log(this.state)
+    checkState = () => console.log(this.state, this.props)
 
 
     render() {
@@ -88,9 +118,10 @@ class MainShop extends Component {
                                 component={InventoryPage} /> : null}
                         </>
                         : null}
-                    <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} /> 
-                    {/* TODO: 404 renders only for not logged in users */}
+                    {/* TODO: 404 renders only for NOT logged in users */}
+                    <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} />
                 </Switch>
+                <button onClick={this.checkState}>state</button>
             </div>
         )
     }
