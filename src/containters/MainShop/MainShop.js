@@ -39,7 +39,6 @@ class MainShop extends Component {
 
         if (this.props.userInfo !== prevProps.userInfo) {
             if (this.props.isAdmin) {
-                console.log('admin here')
                 const ordersRef = this.props.firebase.db.ref('orders')
                 ordersRef.once('value').then(data => {
                     const allOrdersObject = data.val()
@@ -53,8 +52,6 @@ class MainShop extends Component {
                 ordersRef.once('value')
                     .then(data => {
                         const companyOrders = data.val()
-                        // const companyOrdersArray = Object.values(companyOrders)
-                        // const orders = companyOrdersArray[companyOrdersArray.length - 1]
                         const orders = getOrders(companyOrders);
                         this.setState({ orders })
                     }).catch(err => console.log(err))
@@ -84,6 +81,7 @@ class MainShop extends Component {
     }
 
     checkoutCartHandler = (summaryPrice) => {
+        /* TODO unique order id */
         const { userInfo } = this.props
         const order = [...this.state.addedToCart]
         const orders = [
@@ -95,6 +93,7 @@ class MainShop extends Component {
                 createdBy: `${userInfo.firstName} ${userInfo.lastName}`,
                 //TODO proper date format needed
                 date: new Date().getTime(),
+                orderID: `${userInfo.companyId}/${this.state.orders.length + 1}`,
                 status: 'in progress'
             }]
         this.props.firebase.db.ref(`orders/${this.props.userInfo.companyId}`).push(orders)
