@@ -25,21 +25,40 @@ class MainShop extends Component {
             .then((data) => this.setState({ products: data.val() }))
     }
 
-    componentDidUpdate(prevProps){
-        // compDidUp will run everytime new props are passed
-        // wait for the change of userInfo from null to object
-        // no other change will occur, so no worries that it will 
-        // run more than needed and cause infinite loop
-        if (this.props.userInfo !== prevProps.userInfo){
-            const ordersRef = this.props.firebase.db.ref(`example/${this.props.userInfo.companyId}`)
-            ordersRef.once('value')
-                .then(data => {
-                    const allOrders = data.val()
-                    const allOrdersArray = Object.values(allOrders)
-                    // get the last item from array with list of all orders (firebase)
-                    const orders = allOrdersArray[allOrdersArray.length - 1]
+    componentDidUpdate(prevProps) {
+        /*  compDidUp will run everytime new props are passed
+         wait for the change of userInfo from null to object
+         no other change will occur, so no worries that it will 
+         run more than needed and cause infinite loop I think :) */
+
+        const getOrders = (companyOrders) => {
+            const companyOrdersArray = Object.values(companyOrders)
+            const orders = companyOrdersArray[companyOrdersArray.length - 1]
+            return orders
+        }
+
+        if (this.props.userInfo !== prevProps.userInfo) {
+            if (this.props.isAdmin) {
+                console.log('admin here')
+                const ordersRef = this.props.firebase.db.ref('orders')
+                ordersRef.once('value').then(data => {
+                    const allOrdersObject = data.val()
+                    const allOrdersArray = Object.values(allOrdersObject)
+                    const adminAllOrders = allOrdersArray.map((el) => getOrders(el))
+                    const orders = adminAllOrders.flat()
                     this.setState({ orders })
-                }).catch(err => console.log(err))
+                })
+            } else {
+                const ordersRef = this.props.firebase.db.ref(`orders/${this.props.userInfo.companyId}`)
+                ordersRef.once('value')
+                    .then(data => {
+                        const companyOrders = data.val()
+                        // const companyOrdersArray = Object.values(companyOrders)
+                        // const orders = companyOrdersArray[companyOrdersArray.length - 1]
+                        const orders = getOrders(companyOrders);
+                        this.setState({ orders })
+                    }).catch(err => console.log(err))
+            }
         }
     }
 
@@ -70,13 +89,15 @@ class MainShop extends Component {
         const orders = [
             ...this.state.orders,
             {
-                order, summaryPrice,
-                company: userInfo.companyId, 
-                createdBy: userInfo.firstName + " " + userInfo.lastName,
+                order,
+                summaryPrice,
+                company: userInfo.companyId,
+                createdBy: `${userInfo.firstName} ${userInfo.lastName}`,
                 //TODO proper date format needed
-                date: new Date().getTime() 
+                date: new Date().getTime(),
+                status: 'in progress'
             }]
-        this.props.firebase.db.ref(`example/${this.props.userInfo.companyId}`).push(orders)
+        this.props.firebase.db.ref(`orders/${this.props.userInfo.companyId}`).push(orders)
         this.setState({
             orders,
             addedToCart: []
@@ -119,7 +140,7 @@ class MainShop extends Component {
                                 component={InventoryPage} /> : null}
                         </>
                         : null}
-                    {/* TODO: 404 renders only for NOT logged in users */}
+                    {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}
                     <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} />
                 </Switch>
                 <button onClick={this.checkState}>state</button>
