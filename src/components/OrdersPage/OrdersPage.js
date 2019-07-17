@@ -13,7 +13,7 @@ class Orders extends Component {
             return (
                 <div className={classes.Order} key={order.orderID}>
                     <h4>Order ref: {order.orderID} </h4>
-                    <h5> Created by {order.createdBy} at {order.date}</h5>
+                    <h5> Created by {order.createdBy} on {order.date}</h5>
                     <ProductsTable
                         products={order.order}
                         title="Ordered products" />

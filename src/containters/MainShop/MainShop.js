@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
+import date from 'date-and-time';
 
 import CartPage from '../../components/CartPage/CartPage';
 import OrdersPage from '../../components/OrdersPage/OrdersPage';
@@ -84,6 +85,8 @@ class MainShop extends Component {
         /* TODO unique order id */
         const { userInfo } = this.props
         const order = [...this.state.addedToCart]
+        const now = new Date();
+        const orderDate = date.format(now, 'ddd MMM DD YYYY')
         const orders = [
             ...this.state.orders,
             {
@@ -92,7 +95,7 @@ class MainShop extends Component {
                 company: userInfo.companyId,
                 createdBy: `${userInfo.firstName} ${userInfo.lastName}`,
                 //TODO proper date format needed
-                date: new Date().getTime(),
+                date: orderDate,
                 orderID: `${userInfo.companyId}/${this.state.orders.length + 1}`,
                 status: 'in progress'
             }]
