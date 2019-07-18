@@ -8,12 +8,15 @@ class Orders extends Component {
     /* TODO  import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table' show table nicely :) */
 
     render() {
-        
-        let orders = this.props.orders.map((order, index) => {
+        const { orders, isAdmin, realiseOrder } = this.props;
+
+        let ordersList = orders.map((order) => {
             return (
                 <div className={classes.Order} key={order.orderID}>
                     <h4>Order ref: {order.orderID} </h4>
-                    <h5> Created by {order.createdBy} on {order.date}</h5>
+                    <h5> Created by {order.createdBy} on {order.orderDate}</h5>
+                    <h5>Status: {order.status}</h5>
+                    {isAdmin ? <button onClick={() => realiseOrder(order.orderID, order.company)} >Realise</button> : null}
                     <ProductsTable
                         products={order.order}
                         title="Ordered products" />
@@ -22,10 +25,9 @@ class Orders extends Component {
             )
         })
 
-
         return (
             <div>
-                {orders}
+                {ordersList}
             </div>
         )
     }

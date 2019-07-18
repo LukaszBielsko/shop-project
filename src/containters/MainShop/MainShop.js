@@ -6,8 +6,9 @@ import CartPage from '../../components/CartPage/CartPage';
 import OrdersPage from '../../components/OrdersPage/OrdersPage';
 import InventoryPage from '../../components/InventoryPage/InventoryPage';
 import ShopPage from '../../components/ShopPage/ShopPage';
+import { isatty } from 'tty';
 
-
+/* TODO clear state on logout */
 class MainShop extends Component {
 
     constructor(props) {
@@ -23,7 +24,10 @@ class MainShop extends Component {
         // get products
         const productsRef = this.props.firebase.db.ref('products')
         productsRef.once('value')
-            .then((data) => this.setState({ products: data.val() }))
+            .then((data) => {
+                const products = data.val();
+                this.setState({ products })
+            })
     }
 
     componentDidUpdate(prevProps) {
@@ -39,6 +43,11 @@ class MainShop extends Component {
         }
 
         if (this.props.userInfo !== prevProps.userInfo) {
+            /* TODO once() has to be changed to on() - in order to fetch data whenever it changes  */
+            /*  i could change the whole data structure to use only orders
+               and put all orders there, then filter to get only given company's orders 
+               is that a good solution to fetch all orders when it's not neccesary?
+               probably not, but it's easier from normalizing data pespective */
             if (this.props.isAdmin) {
                 const ordersRef = this.props.firebase.db.ref('orders')
                 ordersRef.once('value').then(data => {
@@ -82,7 +91,6 @@ class MainShop extends Component {
     }
 
     checkoutCartHandler = (summaryPrice) => {
-        /* TODO unique order id */
         const { userInfo } = this.props
         const order = [...this.state.addedToCart]
         const now = new Date();
@@ -92,18 +100,39 @@ class MainShop extends Component {
             {
                 order,
                 summaryPrice,
+                orderDate,
                 company: userInfo.companyId,
+                status: 'in progress',
                 createdBy: `${userInfo.firstName} ${userInfo.lastName}`,
-                //TODO proper date format needed
-                date: orderDate,
-                orderID: `${userInfo.companyId}/${this.state.orders.length + 1}`,
-                status: 'in progress'
+                orderID: `${userInfo.companyId}/${this.state.orders.length + 1}`
             }]
-        this.props.firebase.db.ref(`orders/${this.props.userInfo.companyId}`).push(orders)
+        this.props.firebase.db.ref(`orders/${userInfo.companyId}`).push(orders)
         this.setState({
             orders,
             addedToCart: []
         })
+    }
+
+    realiseOrderHandler = (orderID, company) => {
+        // find order, change status, assign to new array
+        const orders = this.state.orders.map((order) => {
+            if (order.orderID === orderID) {
+                order.status = 'realised'
+            }
+            return order
+        })
+
+        // prepare array with orders of given company
+        const companyOrders = []
+        orders.forEach(order => {
+            if (order.company === company) {
+                companyOrders.push(order)
+            }
+        })
+
+        // set state and save to firebase db
+        this.setState(orders)
+        this.props.firebase.db.ref(`orders/${company}`).push(companyOrders)
     }
 
 
@@ -121,6 +150,7 @@ class MainShop extends Component {
 
         return (
             <div>
+                <button onClick={this.checkState}>state</button>
                 <Switch>
                     {isLoggedIn ?
                         <>
@@ -136,7 +166,9 @@ class MainShop extends Component {
                             />
                             <Route path='/orders'
                                 render={() => <OrdersPage
-                                    orders={orders} />}
+                                    orders={orders}
+                                    isAdmin={isAdmin}
+                                    realiseOrder={this.realiseOrderHandler} />}
                             />
                             {isAdmin ? <Route path='/inventory'
                                 component={InventoryPage} /> : null}
@@ -145,7 +177,7 @@ class MainShop extends Component {
                     {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}
                     <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} />
                 </Switch>
-                <button onClick={this.checkState}>state</button>
+
             </div>
         )
     }
