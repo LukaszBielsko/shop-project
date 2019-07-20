@@ -34,7 +34,6 @@ class MainShop extends Component {
          wait for the change of userInfo from null to object
          no other change will occur, so no worries that it will 
          run more than needed and cause infinite loop I think :) */
-         console.log('cdu mainshop')
 
         const getOrders = (companyOrders) => {
             const companyOrdersArray = Object.values(companyOrders)
@@ -68,23 +67,20 @@ class MainShop extends Component {
     addToCartHandler = (id, pieces) => {
         this.setState((prevState) => {
             const product = prevState.products.find(el => el.id === id);
-            return { addedToCart: [...prevState.addedToCart, { ...product, pieces }] };
+            const products = prevState.products.map( item => {
+                if (item.id === id){
+                    item.inStock -= pieces
+                }
+                return item
+            } )
+            console.log(products)
+            return {
+                addedToCart: [...prevState.addedToCart, { ...product, pieces }],
+                products
+            };
         });
-        /*  TODO: Problem occurs when addedToCart is passed to orders component
-            Ponadto, żeby nie duplikować danych to addedToCard powinno mieć tylko ID od produktu i ilość sztuk.
-            addToCartHandler = (id, pieces) => {
-                this.setState((products, addedToCart) => {
-                    return { addedToCart: [...addedToCart, { id, pieces }] };
-                });
-            }
-            
-            Initial code version
-            const addedProduct = { ...this.state.products.find((el) => el.id === id), pieces: pieces }
-            const addedToCart = [...this.state.addedToCart]
-            addedToCart.push(addedProduct)
-            this.setState({ addedToCart: addedToCart })
-        */
     }
+
 
     checkoutCartHandler = (summaryPrice) => {
         const { userInfo } = this.props
@@ -108,6 +104,8 @@ class MainShop extends Component {
             addedToCart: []
         })
     }
+
+
 
     realiseOrderHandler = (orderID, company) => {
         // find order, change status, assign to new array

@@ -14,7 +14,7 @@ class Orders extends Component {
             return (
                 <div className={classes.Order} key={order.orderID}>
                     <h4>Order ref: {order.orderID} </h4>
-                    <h5>Created by {order.createdBy} on {order.orderDate}</h5>
+                    <h5> Created by {order.createdBy} on {order.orderDate}</h5>
                     <h5>Status: {order.status}</h5>
                     {isAdmin ? <button onClick={() => realiseOrder(order.orderID, order.company)} >Realise</button> : null}
                     <ProductsTable

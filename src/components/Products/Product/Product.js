@@ -2,6 +2,19 @@ import React, { Component } from 'react'
 
 import classes from './Product.module.css';
 
+/* TODO - edit and delete button for admin */
+/* We need a page accessible only for the admin where he can add items to our inventory, and refill existing resources.
+
+- On this page admin should see list of items which are currently available, and marked as deleted.
+  - Each item he should see item type, name, price, number in stock, button to edit, button to remove (only for items that are not removed)
+- Admin should be able to edit each existing item. by clicking "Edit" button which opens/redirects to the form filled with item data. Then he should be able to change all the item properties.
+- He should be able to remove items
+  - if someone bought them, they should be still visible in the "Orders" and "Cart" page
+  - removed items should not be displayed in the "Shop" page
+- Admin should be able to add new items to our inventory.
+  - There should be a button "Add new item" which opens/redirects to the form where he can specify all properties of the item
+  */
+
 class Product extends Component {
 
     state = {
@@ -61,6 +74,7 @@ class Product extends Component {
     render() {
         const product = this.props.productData
         const availability = this.checkAvailability(this.state.inStock)
+        const {endPrice, howManyProducts, disableButton} = this.state
 
         return (
             <div className={classes.Product}>
@@ -75,10 +89,10 @@ class Product extends Component {
                         onChange={this.quantityInputHandler} >
                     </input>
                 </div>
-                <p> Price for all items: {this.state.endPrice} </p>
+                <p> Price for all items: {endPrice} </p>
                 <button
-                    onClick={() => this.props.add(product.id, this.state.howManyProducts)}
-                    disabled={this.state.disableButton}
+                    onClick={() => this.props.add(product.id, howManyProducts)}
+                    disabled={disableButton}
                     min="0">
                     Add to cart
                 </button>
