@@ -6,9 +6,8 @@ import CartPage from '../../components/CartPage/CartPage';
 import OrdersPage from '../../components/OrdersPage/OrdersPage';
 import InventoryPage from '../../components/InventoryPage/InventoryPage';
 import ShopPage from '../../components/ShopPage/ShopPage';
-import { isatty } from 'tty';
 
-/* TODO clear state on logout */
+/* TODO clear state on logout - with onAuthStateChanged */
 class MainShop extends Component {
 
     constructor(props) {
@@ -35,6 +34,7 @@ class MainShop extends Component {
          wait for the change of userInfo from null to object
          no other change will occur, so no worries that it will 
          run more than needed and cause infinite loop I think :) */
+         console.log('cdu mainshop')
 
         const getOrders = (companyOrders) => {
             const companyOrdersArray = Object.values(companyOrders)
@@ -44,10 +44,6 @@ class MainShop extends Component {
 
         if (this.props.userInfo !== prevProps.userInfo) {
             /* TODO once() has to be changed to on() - in order to fetch data whenever it changes  */
-            /*  i could change the whole data structure to use only orders
-               and put all orders there, then filter to get only given company's orders 
-               is that a good solution to fetch all orders when it's not neccesary?
-               probably not, but it's easier from normalizing data pespective */
             if (this.props.isAdmin) {
                 const ordersRef = this.props.firebase.db.ref('orders')
                 ordersRef.once('value').then(data => {
@@ -121,17 +117,15 @@ class MainShop extends Component {
             }
             return order
         })
-
-        // prepare array with orders of given company
+        // create array with orders of given company
         const companyOrders = []
         orders.forEach(order => {
             if (order.company === company) {
                 companyOrders.push(order)
             }
         })
-
-        // set state and save to firebase db
         this.setState(orders)
+        // save to db
         this.props.firebase.db.ref(`orders/${company}`).push(companyOrders)
     }
 
