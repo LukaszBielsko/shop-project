@@ -38,33 +38,18 @@ class Product extends Component {
         let endPrice = input * this.props.productData.price
 
         if (input <= 0) {
-            endPrice = 0;
-            this.setState({ disableButton: true, howManyProducts: '', endPrice: 0 });
+            this.setState({ howManyProducts: '', endPrice: 0 });
             return;
         } else if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
-            let inputTooHigh = event.target.value
-            let inputValidated = inputTooHigh.slice(0, -1)
+            const inputTooHigh = event.target.value
+            const inputValidated = inputTooHigh.slice(0, -1)
             this.setState({ howManyProducts: inputValidated })
             return;
         } else {
-            this.setState({ disableButton: false, howManyProducts: input })
-        }
-        
-        this.setState({ endPrice })
-
-        // if (input > this.props.productData.inStock) {
-        //     alert('Sorry, not enough items in stock.');
-        //     let inputTooHigh = event.target.value
-        //     let inputValidated = inputTooHigh.slice(0, -1)
-        //     this.setState({ howManyProducts: inputValidated })
-        //     return;
-        // }
-
-        // if (isNaN(endPrice)) {
-        //     endPrice = 0
-        // }
-
+            this.setState({ disableButton: false, howManyProducts: input, endPrice })
+        }    
+        /* TODO endPrice sets to NaN when input is deleted */ 
     }
 
 
