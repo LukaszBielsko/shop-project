@@ -38,24 +38,33 @@ class Product extends Component {
         let endPrice = input * this.props.productData.price
 
         if (input <= 0) {
-            this.setState({ disableButton: true })
-        } else {
-            this.setState({ disableButton: false })
-        }
-
-        if (input > this.props.productData.inStock) {
-            alert('Sorry, not enough items in stock.');
-            let input = event.target.value
-            // input = Math.floor(input / 10) // FIXME: shows 0 when number entered is less then 10
-            input = input.slice(0, -1)
+            endPrice = 0;
+            this.setState({ disableButton: true, howManyProducts: '', endPrice: 0 });
             return;
+        } else if (input > this.props.productData.inStock) {
+            alert('Sorry, not enough items in stock.');
+            let inputTooHigh = event.target.value
+            let inputValidated = inputTooHigh.slice(0, -1)
+            this.setState({ howManyProducts: inputValidated })
+            return;
+        } else {
+            this.setState({ disableButton: false, howManyProducts: input })
         }
+        
+        this.setState({ endPrice })
 
-        if (isNaN(endPrice)) {
-            endPrice = 0
-        }
+        // if (input > this.props.productData.inStock) {
+        //     alert('Sorry, not enough items in stock.');
+        //     let inputTooHigh = event.target.value
+        //     let inputValidated = inputTooHigh.slice(0, -1)
+        //     this.setState({ howManyProducts: inputValidated })
+        //     return;
+        // }
 
-        this.setState({ endPrice, howManyProducts: input })
+        // if (isNaN(endPrice)) {
+        //     endPrice = 0
+        // }
+
     }
 
 

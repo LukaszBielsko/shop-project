@@ -111,7 +111,6 @@ class MainShop extends Component {
                 orderID: `${userInfo.companyId}/${orders.length + 1}`
             }]
         firebase.db.ref(`orders/${userInfo.companyId}`).push(updatedOrders)
-        /* TODO save updated products number to database */
         firebase.db.ref('products').push(products)
         this.setState({
             orders: updatedOrders,
