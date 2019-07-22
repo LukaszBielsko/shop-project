@@ -7,7 +7,8 @@
       "email": "john.s@ibm.com",
       "password": "mynameisjohn1",
       "role": "user",
-      "companyId": "company-1"
+      "companyId": "company-1",
+      "uid": "z8yxZQ2tYlMeJBqK5XIwL5lnEST2"
     },
     {
       "id": "user-2",
@@ -16,7 +17,8 @@
       "email": "tom.j@ibm.com",
       "password": "mynameistom2",
       "role": "user",
-      "companyId": "company-1"
+      "companyId": "company-1",
+      "uid": "RTjUHijJXqh3OrMlZfk7qe0u00O2"
     },
     {
       "id": "user-3",
@@ -25,7 +27,8 @@
       "email": "ben.m@apple.com",
       "password": "mynameisben",
       "role": "user",
-      "companyId": "company-2"
+      "companyId": "company-2",
+      "uid": "AMETWOF5yrT9jx8YzeX9H4l7ukw1"
     },
     {
       "id": "user-4",

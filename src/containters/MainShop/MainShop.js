@@ -20,11 +20,22 @@ class MainShop extends Component {
     }
 
     componentDidMount() {
+        /*  products are fetched from db only at the start of the app
+        but they are being updated in the local state and then after 
+        checking out db is updated - not a problem with app like this,
+        but with multiple users using app at the same time = problem */
         // get products
         const productsRef = this.props.firebase.db.ref('products')
-        productsRef.once('value')
+        /* productsRef.once('value')
             .then((data) => {
                 const products = data.val();
+                this.setState({ products })
+            }) */
+        productsRef.limitToLast(1).once('value')
+            .then(data => {
+                // const a = Object.values(data.val())
+                const productsObject = data.val()
+                const products = Object.values(productsObject)[0]
                 this.setState({ products })
             })
     }
@@ -43,6 +54,7 @@ class MainShop extends Component {
 
         if (this.props.userInfo !== prevProps.userInfo) {
             /* TODO once() has to be changed to on() - in order to fetch data whenever it changes  */
+            /* TODO  limitToLast() might help with complexity of below blocks */
             if (this.props.isAdmin) {
                 const ordersRef = this.props.firebase.db.ref('orders')
                 ordersRef.once('value').then(data => {
@@ -51,6 +63,7 @@ class MainShop extends Component {
                     const adminAllOrders = allOrdersArray.map((el) => getOrders(el))
                     const orders = adminAllOrders.flat()
                     this.setState({ orders })
+                    debugger
                 })
             } else {
                 const ordersRef = this.props.firebase.db.ref(`orders/${this.props.userInfo.companyId}`)
@@ -67,13 +80,12 @@ class MainShop extends Component {
     addToCartHandler = (id, pieces) => {
         this.setState((prevState) => {
             const product = prevState.products.find(el => el.id === id);
-            const products = prevState.products.map( item => {
-                if (item.id === id){
+            const products = prevState.products.map(item => {
+                if (item.id === id) {
                     item.inStock -= pieces
                 }
                 return item
-            } )
-            console.log(products)
+            })
             return {
                 addedToCart: [...prevState.addedToCart, { ...product, pieces }],
                 products
@@ -83,12 +95,13 @@ class MainShop extends Component {
 
 
     checkoutCartHandler = (summaryPrice) => {
-        const { userInfo } = this.props
-        const order = [...this.state.addedToCart]
+        const { userInfo, firebase } = this.props
+        const { products, addedToCart, orders } = this.state
+        const order = [...addedToCart]
         const now = new Date();
         const orderDate = date.format(now, 'ddd MMM DD YYYY')
-        const orders = [
-            ...this.state.orders,
+        const updatedOrders = [
+            ...orders,
             {
                 order,
                 summaryPrice,
@@ -96,11 +109,13 @@ class MainShop extends Component {
                 company: userInfo.companyId,
                 status: 'in progress',
                 createdBy: `${userInfo.firstName} ${userInfo.lastName}`,
-                orderID: `${userInfo.companyId}/${this.state.orders.length + 1}`
+                orderID: `${userInfo.companyId}/${orders.length + 1}`
             }]
-        this.props.firebase.db.ref(`orders/${userInfo.companyId}`).push(orders)
+        firebase.db.ref(`orders/${userInfo.companyId}`).push(updatedOrders)
+        /* TODO save updated products number to database */
+        firebase.db.ref('products').push(products)
         this.setState({
-            orders,
+            orders: updatedOrders,
             addedToCart: []
         })
     }

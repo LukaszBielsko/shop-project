@@ -23,7 +23,9 @@ class App extends Component {
                 ref.once('value')
                 .then(snapshot => {
                     const users = snapshot.val()
+                    console.log(users)
                     const userInfo = users.find((el) => el.uid === user.uid)
+                    console.log(userInfo)
                     this.setState({
                         userInfo,
                         isLoggedIn: true,
