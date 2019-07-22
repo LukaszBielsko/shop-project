@@ -63,7 +63,6 @@ class MainShop extends Component {
                     const adminAllOrders = allOrdersArray.map((el) => getOrders(el))
                     const orders = adminAllOrders.flat()
                     this.setState({ orders })
-                    debugger
                 })
             } else {
                 const ordersRef = this.props.firebase.db.ref(`orders/${this.props.userInfo.companyId}`)
