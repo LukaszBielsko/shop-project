@@ -48,7 +48,6 @@ class Product extends Component {
             const endPrice = input * this.props.productData.price
             this.setState({ disableButton: false, howManyProducts: input, endPrice })
         }
-        /* TODO endPrice sets to NaN when input is deleted */
     }
 
 

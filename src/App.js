@@ -21,16 +21,16 @@ class App extends Component {
             if (user) {
                 const ref = this.props.firebase.db.ref('users/');
                 ref.once('value')
-                .then(snapshot => {
-                    const users = snapshot.val()
-                    console.log(users)
-                    const userInfo = users.find((el) => el.uid === user.uid)
-                    console.log(userInfo)
-                    this.setState({
-                        userInfo,
-                        isLoggedIn: true,
-                        isAdmin: userInfo.role === 'admin' ? true : false,
-                    })
+                    .then(snapshot => {
+                        const users = snapshot.val()
+                        console.log(users)
+                        const userInfo = users.find((el) => el.uid === user.uid)
+                        console.table(userInfo)
+                        this.setState({
+                            userInfo,
+                            isLoggedIn: true,
+                            isAdmin: userInfo.role === 'admin' ? true : false,
+                        })
                     })
             } else {
                 this.setState({ isLoggedIn: false })
@@ -46,9 +46,12 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <NavigationBar
-                    showLinks={isLoggedIn}
+                    isLoggedIn={isLoggedIn}
+                    firebase={firebase}
                     isAdmin={isAdmin} />
-                <LandingPage />
+                <LandingPage
+                    isLoggedIn={isLoggedIn}
+                 />
                 <MainShop
                     firebase={firebase}
                     isLoggedIn={isLoggedIn}

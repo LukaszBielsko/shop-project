@@ -18,7 +18,9 @@ class LandingPage extends Component {
                 <div className={classes.LandingPage}>
                     <FirebaseContext.Consumer>
                         {firebase => <Route path="/" exact
-                            render={() => <LogingPage firebase={firebase} />}
+                            render={() => <LogingPage 
+                                firebase={firebase}
+                                isLoggedIn={this.props.isLoggedIn} />}
                         />}
                     </FirebaseContext.Consumer>
                 </div>

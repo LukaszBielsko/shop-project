@@ -15,16 +15,17 @@ const NavBar = (props) => (
             <img src={logo} alt="printer logo" />
         </Link>
 
-        {props.showLinks ?
+        {props.isLoggedIn ?
             <>
                 <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
                 <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
                 <NavLink to='/orders' className={classes.navLink} activeStyle={styles}> Orders</NavLink>
-                {props.isAdmin ? <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink> : null}
+                {props.isAdmin && <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink>}
+                {props.isLoggedIn  ? <button onClick={props.firebase.doSignOut}> LOG OUT</button> : null}
             </>
             : <p>Please log in.</p>
         }
-        
+
     </div>
 );
 
