@@ -157,7 +157,7 @@ class MainShop extends Component {
             <div>
                 <button onClick={this.checkState}>state</button>
                 <Switch>
-                    isLoggedIn &&
+                    {isLoggedIn ?
                         <>
                             <Route path='/shop'
                                 render={(props) => <ShopPage
@@ -175,10 +175,10 @@ class MainShop extends Component {
                                     isAdmin={isAdmin}
                                     realiseOrder={this.realiseOrderHandler} />}
                             />
-                            isAdmin && <Route path='/inventory'
-                                component={InventoryPage} />
+                            {isAdmin ? <Route path='/inventory'
+                                component={InventoryPage} /> : null}
                         </>
-                        
+                        : null}
                     {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}
                     <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} />
                 </Switch>

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class InventoryPage extends Component {
     render() {
         return (
-            false && <h1>Inventory Page</h1>
+            <h1>Inventory Page</h1>
         )
     }
 }
@@ -12,7 +12,7 @@ export default InventoryPage;
 
 /*
 - On this page admin should see list of items which are currently available, and marked as deleted.
-    Products component can be used. 
+    Products component can be used.
     What about additional features available only for admin?
         - Admin buttons can be coded as component and added to the view
 

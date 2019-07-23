@@ -35,21 +35,20 @@ class Product extends Component {
 
     quantityInputHandler = (event) => {
         const input = parseInt(event.target.value)
-        let endPrice = input * this.props.productData.price
 
         if (input <= 0) {
             this.setState({ howManyProducts: '', endPrice: 0 });
             return;
         } else if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
-            const inputTooHigh = event.target.value
-            const inputValidated = inputTooHigh.slice(0, -1)
+            const inputValidated = input.slice(0, -1)
             this.setState({ howManyProducts: inputValidated })
             return;
         } else {
+            const endPrice = input * this.props.productData.price
             this.setState({ disableButton: false, howManyProducts: input, endPrice })
-        }    
-        /* TODO endPrice sets to NaN when input is deleted */ 
+        }
+        /* TODO endPrice sets to NaN when input is deleted */
     }
 
 
