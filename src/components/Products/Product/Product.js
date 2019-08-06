@@ -20,7 +20,7 @@ class Product extends Component {
     checkAvailability = (inStock) => {
         let availability;
 
-        if (inStock > 101) {
+        if (inStock > 101) { 
             availability = 'full supply'
         } else if (inStock <= 100) {
             availability = 'medium supply'
@@ -49,7 +49,6 @@ class Product extends Component {
             this.setState({ disableButton: false, howManyProducts: input, endPrice })
         }
     }
-
 
     render() {
         const product = this.props.productData
