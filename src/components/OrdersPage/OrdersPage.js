@@ -5,8 +5,6 @@ import classes from './OrdersPage.module.css';
 
 class Orders extends Component {
 
-    /* TODO  import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table' show table nicely :) */
-
     render() {
         const { orders, isAdmin, realiseOrder } = this.props;
 

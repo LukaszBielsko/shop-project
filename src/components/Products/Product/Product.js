@@ -20,7 +20,7 @@ class Product extends Component {
     checkAvailability = (inStock) => {
         let availability;
 
-        if (inStock > 101) { 
+        if (inStock > 101) {
             availability = 'full supply'
         } else if (inStock <= 100) {
             availability = 'medium supply'
@@ -42,8 +42,6 @@ class Product extends Component {
             return;
         } else if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
-            /* TODO input var is a number not a string
-                so no slice method on the number  */ 
             const inputValidated = input.toString().slice(0, -1)
             this.setState({ howManyProducts: inputValidated })
             return;
@@ -52,6 +50,8 @@ class Product extends Component {
             this.setState({ disableButton: false, howManyProducts: input, endPrice })
         }
     }
+
+    /* TODO clear input state after clicking buy button */ 
 
     render() {
         const product = this.props.productData
@@ -65,7 +65,7 @@ class Product extends Component {
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
                 <div>
-                   Quantity:
+                    Quantity:
                 <input
                         value={howManyProducts.toString()}
                         type="number"
