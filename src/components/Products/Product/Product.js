@@ -34,7 +34,8 @@ class Product extends Component {
     }
 
     quantityInputHandler = (event) => {
-        const input = parseInt(event.target.value)
+        // without || 0 input would evaluate to NaN, then endPrice would be NaN as well
+        const input = parseInt(event.target.value) || 0
 
         if (input <= 0) {
             this.setState({ howManyProducts: '', endPrice: 0 });
@@ -43,7 +44,7 @@ class Product extends Component {
             alert('Sorry, not enough items in stock.');
             /* TODO input var is a number not a string
                 so no slice method on the number  */ 
-            const inputValidated = input.slice(0, -1)
+            const inputValidated = input.toString().slice(0, -1)
             this.setState({ howManyProducts: inputValidated })
             return;
         } else {
