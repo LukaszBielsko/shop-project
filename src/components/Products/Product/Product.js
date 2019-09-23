@@ -41,6 +41,8 @@ class Product extends Component {
             return;
         } else if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
+            /* TODO input var is a number not a string
+                so no slice method on the number  */ 
             const inputValidated = input.slice(0, -1)
             this.setState({ howManyProducts: inputValidated })
             return;
@@ -62,7 +64,7 @@ class Product extends Component {
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
                 <div>
-                    How many would you like to order:
+                   Quantity:
                 <input
                         value={howManyProducts.toString()}
                         type="number"

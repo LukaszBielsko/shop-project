@@ -141,21 +141,12 @@ class MainShop extends Component {
     }
 
 
-    /* React devtools installed earlier on.
-    Made this only for convenience, as it's 
-    quicker than clicking into react dev tools
-    and then to desired component each time 
-    the code changes / page refreshes  */
-    checkState = () => console.log(this.state, this.props)
-
-
     render() {
         const { orders, products, addedToCart } = this.state
         const { isLoggedIn, isAdmin } = this.props
 
         return (
             <div>
-                <button onClick={this.checkState}>state</button>
                 <Switch>
                     {isLoggedIn ?
                         <>
