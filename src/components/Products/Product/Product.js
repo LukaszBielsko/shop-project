@@ -51,7 +51,10 @@ class Product extends Component {
         }
     }
 
-    /* TODO clear input state after clicking buy button */ 
+    clearInput = () => {
+        this.setState({ howManyProducts: '', disableButton: true })
+    }
+
 
     render() {
         const product = this.props.productData
@@ -74,7 +77,11 @@ class Product extends Component {
                 </div>
                 <p> Price for all items: {endPrice} </p>
                 <button
-                    onClick={() => this.props.add(product.id, howManyProducts)}
+                    onClick={() => {
+                        // arrow function did not work here
+                        this.props.add(product.id, howManyProducts);
+                        this.clearInput();
+                    }}
                     disabled={disableButton}
                     min="0">
                     Add to cart
