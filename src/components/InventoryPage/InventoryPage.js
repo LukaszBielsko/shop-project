@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import Products from '../Products/Products';
 
 class InventoryPage extends Component {
     render() {
+        const {products, isAdmin} = this.props
         return (
-            <h1>Inventory Page</h1>
+            <Products products={products} isAdmin={isAdmin}/>
         )
     }
 }

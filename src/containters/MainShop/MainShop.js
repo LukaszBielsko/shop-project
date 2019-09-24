@@ -167,7 +167,10 @@ class MainShop extends Component {
                                     realiseOrder={this.realiseOrderHandler} />}
                             />
                             {isAdmin ? <Route path='/inventory'
-                                component={InventoryPage} /> : null}
+                                render={() => <InventoryPage
+                                    isAdmin={isAdmin}
+                                    products={products} /> } />
+                            : null}
                         </>
                         : null}
                     {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}

@@ -58,6 +58,7 @@ class Product extends Component {
 
     render() {
         const product = this.props.productData
+        const { isAdmin } = this.props
         const availability = this.checkAvailability(this.state.inStock)
         const { endPrice, howManyProducts, disableButton } = this.state
 
@@ -67,25 +68,29 @@ class Product extends Component {
                 <p>Availability: {availability}   </p>
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
-                <div>
-                    Quantity:
-                <input
-                        value={howManyProducts.toString()}
-                        type="number"
-                        onChange={this.quantityInputHandler} >
-                    </input>
-                </div>
-                <p> Price for all items: {endPrice} </p>
-                <button
-                    onClick={() => {
-                        // arrow function did not work here
-                        this.props.add(product.id, howManyProducts);
-                        this.clearInput();
-                    }}
-                    disabled={disableButton}
-                    min="0">
-                    Add to cart
-                </button>
+                {isAdmin ? <p>admin buttons </p> :
+                    <>
+                        <div>
+                            Quantity:
+                            <input
+                                value={howManyProducts.toString()}
+                                type="number"
+                                onChange={this.quantityInputHandler} >
+                            </input>
+                        </div>
+                        <p> Price for all items: {endPrice} </p>
+                        <button
+                            onClick={() => {
+                                // arrow function did not work here
+                                this.props.add(product.id, howManyProducts);
+                                this.clearInput();
+                            }}
+                            disabled={disableButton}
+                            min="0">
+                            Add to cart
+                        </button>
+                    </>
+                }
             </div>
         )
     }

@@ -7,6 +7,7 @@ const Products = (props) => {
         <div>
             {props.products.map((product) => {
                 return <Product
+                    isAdmin={props.isAdmin}
                     key={product.id}
                     productData={product}
                     add={props.add} />
