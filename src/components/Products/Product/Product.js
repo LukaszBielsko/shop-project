@@ -60,12 +60,12 @@ class Product extends Component {
         const product = this.props.productData
         const { isAdmin } = this.props
         const availability = this.checkAvailability(this.state.inStock)
-        const { endPrice, howManyProducts, disableButton } = this.state
+        const { endPrice, howManyProducts, disableButton, inStock } = this.state
 
         return (
             <div className={classes.Product}>
                 <p> Product type: {product.type}</p>
-                <p>Availability: {availability}   </p>
+                <p>Availability: {isAdmin ? inStock : availability}   </p>
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
                 {isAdmin ? <p>admin buttons </p> :
