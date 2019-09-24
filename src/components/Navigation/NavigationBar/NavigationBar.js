@@ -17,11 +17,21 @@ const NavBar = (props) => (
 
         {props.isLoggedIn ?
             <>
-                <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
-                <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
+                {props.isAdmin ? null :
+                    <>
+                        <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
+                        <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
+                    </>
+                }
                 <NavLink to='/orders' className={classes.navLink} activeStyle={styles}> Orders</NavLink>
-                {props.isAdmin && <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> Inventory</NavLink>}
-                {props.isLoggedIn  ? <button onClick={props.firebase.doSignOut}> LOG OUT</button> : null}
+                {props.isAdmin &&
+                    <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}> 
+                        Inventory  
+                    </NavLink>
+                }
+                {props.isLoggedIn ?
+                    <button onClick={props.firebase.doSignOut}> LOG OUT</button>
+                : null}
             </>
             : <p>Please log in.</p>
         }
