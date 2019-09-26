@@ -20,44 +20,71 @@ class AdminButtons extends Component {
         modalIsOpen: false,
     }
 
+    componentDidMount() {
+        const { id, inStock, name, price, type } = this.props.product
+        this.setState({ id, inStock, name, price, type })
+        console.log('did mount')
+    }
+
     openModal = () => {
         this.setState({ modalIsOpen: true });
     }
 
     afterOpenModal = () => {
         // references are now sync'd and can be accessed.
-        this.subtitle.style.color = '#f00';
+        this.subtitle.style.color = 'green';
     }
 
     closeModal = () => {
         this.setState({ modalIsOpen: false });
     }
 
+    handleChange = (event) => {
+        const target = event.target
+        const input = target.value
+        const name = target.name
+        this.setState({ [name]: input })
+    }
+
 
     render() {
-
+        const { product, remove } = this.props
+        const { modalIsOpen, name, id, inStock, price, type } = this.state
         return (
             <>
                 <button onClick={this.openModal}>EDIT</button>
                 <Modal
-                    isOpen={this.state.modalIsOpen}
+                    isOpen={modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     style={customStyles}
                     contentLabel="Edit "
                 >
-
                     <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
                     <button onClick={this.closeModal}>close</button>
                     <div>{this.props.product.name}</div>
                     <form>
-                        <input name='product-name' value={this.props.product.name} />
-                        <button>tab navigation</button>
-                        <button>stays</button>
-                        <button>inside</button>
-                        <button>the modal</button>
+                        <label>
+                            Name
+                            <input name="name" type="text" value={name} onChange={this.handleChange} />
+                        </label>
+                        <label>
+                            Id
+                            <input name="id" type="text" value={id} onChange={this.handleChange} />
+                        </label>
+                        <label>inStock
+                            <input name="inStock" type="text" value={inStock} onChange={this.handleChange} />
+                        </label>
+                        <label>
+                            Price
+                            <input name="price" type="text" value={price} onChange={this.handleChange} />
+                        </label>
+                        <label>
+                            Type
+                            <input name="type" type="text" value={type} onChange={this.handleChange} />
+                        </label>
                     </form>
                 </Modal>
-                <button onClick={() => this.props.remove(this.props.product.id)}>remove</button>
+                <button onClick={() => remove(product.id)}>remove</button>
             </>
         )
     }
@@ -65,3 +92,8 @@ class AdminButtons extends Component {
 
 export default AdminButtons;
 
+
+/* create a form in the modal
+labels corespond with object keys
+fill fields with values that can be edited
+save and cancel buttons and bob's your uncle */
