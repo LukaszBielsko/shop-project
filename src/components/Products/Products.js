@@ -10,7 +10,8 @@ const Products = (props) => {
                     isAdmin={props.isAdmin}
                     key={product.id}
                     productData={product}
-                    add={props.add} />
+                    add={props.add}
+                    remove={props.remove} />
             })}
         </div>
     );

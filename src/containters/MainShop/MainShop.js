@@ -24,6 +24,7 @@ class MainShop extends Component {
         but they are being updated in the local state and then after 
         checking out db is updated - not a problem with app like this,
         but with multiple users using app at the same time = problem */
+
         // get products
         const productsRef = this.props.firebase.db.ref('products')
         /* productsRef.once('value')
@@ -140,8 +141,16 @@ class MainShop extends Component {
         this.props.firebase.db.ref(`orders/${company}`).push(companyOrders)
     }
 
-    removeProduct = (productID) => {
-        
+    removeProduct = (productId) => {
+        // find index of removed index then remove it from products
+        const { products } = this.state
+        const removedProductIndex = products.find(el => el.id === productId)
+        products.splice(removedProductIndex, 1)
+        // save to db and change state
+        // sth should be changed here - dont like the fact that im updating db
+        // and then seting the state - but it works for now
+        this.props.firebase.db.ref('products').push(products)
+        this.setState(products)
     }
 
 
@@ -173,8 +182,9 @@ class MainShop extends Component {
                             {isAdmin ? <Route path='/inventory'
                                 render={() => <InventoryPage
                                     isAdmin={isAdmin}
-                                    products={products} /> } />
-                            : null}
+                                    products={products}
+                                    remove={this.removeProduct} />} />
+                                : null}
                         </>
                         : null}
                     {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}

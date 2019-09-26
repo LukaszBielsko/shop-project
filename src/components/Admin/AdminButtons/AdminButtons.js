@@ -12,7 +12,7 @@ class AdminButtons extends Component {
         return (
             <>
                 <button>edit</button>
-                <button onClick={() => this.checkId(this.props.product.id) }>remove</button>
+                <button onClick={() => this.props.remove(this.props.product.id) }>remove</button>
             </>
         )
     }
