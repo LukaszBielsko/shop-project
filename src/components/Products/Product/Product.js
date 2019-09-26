@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AdminButtons from '../../Admin/AdminButtons/AdminButtons';
 
 import classes from './Product.module.css';
 class Product extends Component {
@@ -68,7 +69,9 @@ class Product extends Component {
                 <p>Availability: {isAdmin ? inStock : availability}   </p>
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
-                {isAdmin ? <p>admin buttons </p> :
+                {isAdmin ? 
+                    <AdminButtons product={product}/> 
+                    :
                     <>
                         <div>
                             Quantity:

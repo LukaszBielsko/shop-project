@@ -121,7 +121,7 @@ class MainShop extends Component {
 
 
     realiseOrderHandler = (orderID, company) => {
-        // find order, change status, assign to new array
+        // find order, change status, update orders (create a new array of orders with updated order)
         const orders = this.state.orders.map((order) => {
             if (order.orderID === orderID) {
                 order.status = 'realised'
@@ -138,6 +138,10 @@ class MainShop extends Component {
         this.setState(orders)
         // save to db
         this.props.firebase.db.ref(`orders/${company}`).push(companyOrders)
+    }
+
+    removeProduct = (productID) => {
+        
     }
 
 
