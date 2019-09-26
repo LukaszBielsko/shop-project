@@ -46,10 +46,9 @@ class AdminButtons extends Component {
         this.setState({ [name]: input })
     }
 
-
     render() {
         const { product, remove } = this.props
-        const { modalIsOpen, name, id, inStock, price, type } = this.state
+        const { modalIsOpen, name, inStock, price, type } = this.state
         return (
             <>
                 <button onClick={this.openModal}>EDIT</button>
@@ -67,10 +66,6 @@ class AdminButtons extends Component {
                             Name
                             <input name="name" type="text" value={name} onChange={this.handleChange} />
                         </label>
-                        <label>
-                            Id
-                            <input name="id" type="text" value={id} onChange={this.handleChange} />
-                        </label>
                         <label>inStock
                             <input name="inStock" type="text" value={inStock} onChange={this.handleChange} />
                         </label>
@@ -82,6 +77,10 @@ class AdminButtons extends Component {
                             Type
                             <input name="type" type="text" value={type} onChange={this.handleChange} />
                         </label>
+                        <button onClick={ () => {
+                            this.props.edit(this.state)
+                            this.closeModal() }
+                            }>Save changes</button>
                     </form>
                 </Modal>
                 <button onClick={() => remove(product.id)}>remove</button>

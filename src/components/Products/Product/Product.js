@@ -59,7 +59,7 @@ class Product extends Component {
 
     render() {
         const product = this.props.productData
-        const { isAdmin, remove } = this.props
+        const { isAdmin, remove, edit } = this.props
         const availability = this.checkAvailability(this.state.inStock)
         const { endPrice, howManyProducts, disableButton, inStock } = this.state
 
@@ -70,7 +70,7 @@ class Product extends Component {
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
                 {isAdmin ? 
-                    <AdminButtons product={product} remove={remove}/> 
+                    <AdminButtons product={product} remove={remove} edit={edit}/> 
                     :
                     <>
                         <div>

@@ -144,13 +144,22 @@ class MainShop extends Component {
     removeProduct = (productId) => {
         // find index of removed index then remove it from products
         const { products } = this.state
-        const removedProductIndex = products.find(el => el.id === productId)
+        const removedProductIndex = products.findIndex(el => el.id === productId)
         products.splice(removedProductIndex, 1)
         // save to db and change state
         // sth should be changed here - dont like the fact that im updating db
         // and then seting the state - but it works for now
         this.props.firebase.db.ref('products').push(products)
         this.setState(products)
+    }
+
+    editProduct = (editedProduct) => {
+        const { products } = this.state
+        const changedProductIndex = products.findIndex(el => el.id === editedProduct.id)
+        products[changedProductIndex] = editedProduct
+        //set state and update db
+        this.setState({products})
+        this.props.firebase.db.ref('products').push(products)
     }
 
 
@@ -183,7 +192,8 @@ class MainShop extends Component {
                                 render={() => <InventoryPage
                                     isAdmin={isAdmin}
                                     products={products}
-                                    remove={this.removeProduct} />} />
+                                    remove={this.removeProduct} 
+                                    edit={this.editProduct}/>} />
                                 : null}
                         </>
                         : null}

@@ -8,10 +8,12 @@ const Products = (props) => {
             {props.products.map((product) => {
                 return <Product
                     isAdmin={props.isAdmin}
-                    key={product.id}
+                    /* TODO does not work as a unique key */ 
+                    key={product.id} t
                     productData={product}
                     add={props.add}
-                    remove={props.remove} />
+                    remove={props.remove}
+                    edit={props.edit} />
             })}
         </div>
     );
