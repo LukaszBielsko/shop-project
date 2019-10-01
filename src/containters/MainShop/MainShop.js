@@ -148,6 +148,7 @@ class MainShop extends Component {
         const product = products[removedProductIndex]
         product.isRemoved = true
         product.inStock = 0
+        /* TODO below can be deleted as product is a reference and not a copy */ 
         products[removedProductIndex] = product
         // // save to db and change state
         // // sth should be changed here - dont like the fact that im updating db

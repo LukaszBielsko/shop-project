@@ -83,7 +83,10 @@ class AdminButtons extends Component {
                             }>Save changes</button>
                     </form>
                 </Modal>
-                <button onClick={() => remove(product.id)}>remove</button>
+                {product.isRemoved ?
+                    <button> add </button> :
+                    <button onClick={() => remove(product.id)}>remove</button>
+                }
             </>
         )
     }
