@@ -145,10 +145,11 @@ class MainShop extends Component {
         // find index of removed index then remove it from products
         const { products } = this.state
         const removedProductIndex = products.findIndex(el => el.id === productId)
-        products.splice(removedProductIndex, 1)
-        // save to db and change state
-        // sth should be changed here - dont like the fact that im updating db
-        // and then seting the state - but it works for now
+        products[removedProductIndex].isRemoved = true
+        // products.splice(removedProductIndex, 1)
+        // // save to db and change state
+        // // sth should be changed here - dont like the fact that im updating db
+        // // and then seting the state - but it works for now
         this.props.firebase.db.ref('products').push(products)
         this.setState(products)
     }
