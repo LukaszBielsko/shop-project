@@ -63,6 +63,9 @@ class Product extends Component {
         const availability = this.checkAvailability(this.state.inStock)
         const { endPrice, howManyProducts, disableButton, inStock } = this.state
 
+        // will not show if it isn't admin and product is removed
+        if (!isAdmin && product.isRemoved) return null
+
         return (
             <div className={classes.Product}>
                 <p> Product type: {product.type}</p>
