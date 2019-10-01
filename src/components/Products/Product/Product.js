@@ -69,8 +69,11 @@ class Product extends Component {
                 <p>Availability: {isAdmin ? inStock : availability}   </p>
                 <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
-                {isAdmin ? 
-                    <AdminButtons product={product} remove={remove} edit={edit}/> 
+                {isAdmin ?
+                    <>
+                        <p>{product.isRemoved ? 'Status: removed' : 'Status: in stock'}</p>
+                        <AdminButtons product={product} remove={remove} edit={edit} />
+                    </>
                     :
                     <>
                         <div>
