@@ -145,8 +145,10 @@ class MainShop extends Component {
         // find index of removed index then remove it from products
         const { products } = this.state
         const removedProductIndex = products.findIndex(el => el.id === productId)
-        products[removedProductIndex].isRemoved = true
-        // products.splice(removedProductIndex, 1)
+        const product = products[removedProductIndex]
+        product.isRemoved = true
+        product.inStock = 0
+        products[removedProductIndex] = product
         // // save to db and change state
         // // sth should be changed here - dont like the fact that im updating db
         // // and then seting the state - but it works for now
