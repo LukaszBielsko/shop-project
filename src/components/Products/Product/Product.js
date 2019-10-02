@@ -23,9 +23,9 @@ class Product extends Component {
 
         if (inStock > 101) {
             availability = 'full supply'
-        } else if (inStock <= 100) {
+        } else if (inStock > 11) {
             availability = 'medium supply'
-        } else if (inStock <= 10) {
+        } else if (inStock > 0) {
             availability = 'last pieces'
         } else if (inStock === 0) {
             availability = 'not available'
