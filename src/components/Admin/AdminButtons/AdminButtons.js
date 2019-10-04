@@ -23,7 +23,6 @@ class AdminButtons extends Component {
     componentDidMount() {
         const { id, inStock, name, price, type } = this.props.product
         this.setState({ id, inStock, name, price, type })
-        console.log('did mount')
     }
 
     openModal = () => {
@@ -37,6 +36,11 @@ class AdminButtons extends Component {
 
     closeModal = () => {
         this.setState({ modalIsOpen: false });
+    }
+
+    // this will set modal input fields to initial state
+    clearInputFields =  () => {
+        this.componentDidMount()
     }
 
     handleChange = (event) => {
@@ -59,7 +63,11 @@ class AdminButtons extends Component {
                     contentLabel="Edit "
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-                    <button onClick={this.closeModal}>close</button>
+                    <button onClick={() => {
+                        this.closeModal()
+                        this.clearInputFields()
+                    }
+                    }>close</button>
                     <div>{this.props.product.name}</div>
                     <form>
                         <label>
@@ -77,10 +85,11 @@ class AdminButtons extends Component {
                             Type
                             <input name="type" type="text" value={type} onChange={this.handleChange} />
                         </label>
-                        <button onClick={ () => {
+                        <button onClick={() => {
                             this.props.edit(this.state)
-                            this.closeModal() }
-                            }>Save changes</button>
+                            this.closeModal()
+                        }
+                        }>Save changes</button>
                     </form>
                 </Modal>
                 {product.isRemoved ?
