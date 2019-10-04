@@ -20,7 +20,14 @@ Modal.setAppElement('#root');
 class InventoryPage extends Component {
 
     state = {
-        modalIsOpen: false
+        modalIsOpen: false,
+        newProduct: {
+            id: null,
+            type: null,
+            name: null,
+            price: null,
+            inStock: null
+        }
     }
 
     openModal = () => {
@@ -33,7 +40,26 @@ class InventoryPage extends Component {
     }
 
     closeModal = () => {
-        this.setState({ modalIsOpen: false });
+        this.setState({
+            modalIsOpen: false,
+            newProduct: {
+                id: null,
+                type: null,
+                name: null,
+                price: null,
+                inStock: null
+            }
+        });
+    }
+
+    handleChange = (event) => {
+        const target = event.target
+        const input = target.value
+        const name = target.name
+        const { ...newProduct } = this.state.newProduct
+        newProduct[name] = input
+        console.table(newProduct)
+        this.setState({ newProduct })
     }
 
     render() {
@@ -49,27 +75,33 @@ class InventoryPage extends Component {
                     contentLabel="Add new product ">
                     <h2 ref={subtitle => this.subtitle = subtitle}>Add new product</h2>
                     <label>
+                        Type
+                            <input name="type" type="text" onChange={this.handleChange} />
+                    </label>
+                    <label>
                         id
-                            <input name="id" type="text" />
+                            <input name="id" type="text" onChange={this.handleChange} />
                     </label>
                     <label>
                         Name
-                            <input name="name" type="text" />
+                            <input name="name" type="text" onChange={this.handleChange} />
                     </label>
                     <label>
                         inStock
-                            <input name="inStock" type="text" />
+                            <input name="inStock" type="text" onChange={this.handleChange} />
                     </label>
                     <label>
                         Price
-                            <input name="price" type="text" />
+                            <input name="price" type="text" onChange={this.handleChange} />
                     </label>
-                    <label>
-                        Type
-                            <input name="type" type="text" />
-                    </label>
+
                     <button onClick={this.closeModal}>Cancel</button>
-                    <button onClick={null}>Add</button>
+                    <button onClick={() => {
+                        this.props.add(this.state.newProduct)
+                        this.closeModal()
+                        }}
+                    >
+                        Add</button>
                 </Modal>
                 <Products products={products} isAdmin={isAdmin} remove={remove} edit={edit} />
             </>
