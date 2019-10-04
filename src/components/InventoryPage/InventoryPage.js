@@ -1,11 +1,78 @@
 import React, { Component } from 'react'
 import Products from '../Products/Products';
+import Modal from 'react-modal';
+
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+Modal.setAppElement('#root');
+
 
 class InventoryPage extends Component {
+
+    state = {
+        modalIsOpen: false
+    }
+
+    openModal = () => {
+        this.setState({ modalIsOpen: true });
+    }
+
+    afterOpenModal = () => {
+        // references are now sync'd and can be accessed.
+        this.subtitle.style.color = 'green';
+    }
+
+    closeModal = () => {
+        this.setState({ modalIsOpen: false });
+    }
+
     render() {
-        const {products, isAdmin, remove, edit} = this.props
+        const { products, isAdmin, remove, edit, add } = this.props
+        const { modalIsOpen } = this.state
         return (
-            <Products products={products} isAdmin={isAdmin} remove={remove} edit={edit}/>
+            <>
+                <button onClick={this.openModal}>ADD NEW PRODUCT</button>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    style={customStyles}
+                    contentLabel="Add new product ">
+                    <h2 ref={subtitle => this.subtitle = subtitle}>Add new product</h2>
+                    <label>
+                        id
+                            <input name="id" type="text" />
+                    </label>
+                    <label>
+                        Name
+                            <input name="name" type="text" />
+                    </label>
+                    <label>
+                        inStock
+                            <input name="inStock" type="text" />
+                    </label>
+                    <label>
+                        Price
+                            <input name="price" type="text" />
+                    </label>
+                    <label>
+                        Type
+                            <input name="type" type="text" />
+                    </label>
+                    <button onClick={this.closeModal}>Cancel</button>
+                    <button onClick={null}>Add</button>
+                </Modal>
+                <Products products={products} isAdmin={isAdmin} remove={remove} edit={edit} />
+            </>
         )
     }
 }
