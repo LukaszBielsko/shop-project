@@ -166,6 +166,12 @@ class MainShop extends Component {
         this.props.firebase.db.ref('products').push(products)
     }
 
+    addNewProduct = (newProduct) => {
+        const { products } = this.state
+        products.push(newProduct)
+        this.setState({products})
+        this.props.firebase.db.ref('products').push(products)
+    } 
 
     render() {
         const { orders, products, addedToCart } = this.state
@@ -194,6 +200,7 @@ class MainShop extends Component {
                             />
                             {isAdmin ? <Route path='/inventory'
                                 render={() => <InventoryPage
+                                    add={this.addNewProduct}
                                     isAdmin={isAdmin}
                                     products={products}
                                     remove={this.removeProduct} 
