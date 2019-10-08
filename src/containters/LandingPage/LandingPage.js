@@ -18,13 +18,18 @@ class LandingPage extends Component {
                 <div className={classes.LandingPage}>
                     <FirebaseContext.Consumer>
                         {firebase => <Route path="/" exact
-                            render={() => <LogingPage 
+                            render={() => <LogingPage
                                 firebase={firebase}
                                 isLoggedIn={this.props.isLoggedIn} />}
                         />}
                     </FirebaseContext.Consumer>
                 </div>
-                <Route path="/register-page" component={RegisterPage} />
+                <FirebaseContext.Consumer>
+                    {firebase => <Route path="/register-page"
+                        render={() => <RegisterPage
+                            firebase={firebase} />}
+                    />}
+                </FirebaseContext.Consumer>
             </>
         )
     }

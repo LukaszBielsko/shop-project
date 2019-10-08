@@ -10,10 +10,11 @@ class RegisterPage extends Component {
         lastName: '',
         email: '',
         password: '',
-        company: ''
+        companyId: ''
     }
 
     handleSubmit = (event) => {
+        this.props.firebase.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
         event.preventDefault()
     }
 
@@ -45,7 +46,7 @@ class RegisterPage extends Component {
                             onChange={this.handleInput}
                             required />
                     </label>
-                    <select name="company" onChange={this.handleInput} >
+                    <select name="companyId" onChange={this.handleInput} >
                         <option value="company-1">company-1</option>
                         <option value="company-2">company-2</option>
                     </select>
