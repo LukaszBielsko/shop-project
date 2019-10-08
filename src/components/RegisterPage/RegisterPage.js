@@ -6,18 +6,25 @@ import React, { Component } from 'react'
 class RegisterPage extends Component {
 
     state = {
-        firstName: null,
-        lastName: null,
-        email: null,
-        password: null,
-        company: ['company-1', 'company-2']
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        company: ''
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
     }
 
     handleInput = (event) => {
-        return null
+        const input = event.target.value
+        const target = event.target.name
+        this.setState({ [target]: input })
     }
 
     render() {
+        const {firstName, lastName, email, password} = this.state
         return (
             <>
                 <h4>Pls enter your details</h4>
@@ -25,6 +32,7 @@ class RegisterPage extends Component {
                     <label>
                         First Name:
                         <input
+                            value={firstName}
                             type="text" name='firstName'
                             onChange={this.handleInput}
                             required />
@@ -32,24 +40,27 @@ class RegisterPage extends Component {
                     <label>
                         Last Name:
                         <input
+                            value={lastName}
                             type="text" name='lastName'
                             onChange={this.handleInput}
                             required />
                     </label>
-                    <select>
+                    <select name="company" onChange={this.handleInput} >
                         <option value="company-1">company-1</option>
                         <option value="company-2">company-2</option>
                     </select>
                     <label>
                         email:
                         <input
-                            type="text" name='email'
+                            value={email}
+                            type="email" name='email'
                             onChange={this.handleInput}
                             required />
                     </label>
                     <label>
                         Password:
                         <input
+                            value={password}
                             type="password"
                             name='password'
                             onChange={this.handleInput}
