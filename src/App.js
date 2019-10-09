@@ -22,10 +22,16 @@ class App extends Component {
                 const ref = this.props.firebase.db.ref('users/');
                 ref.once('value')
                     .then(snapshot => {
-                        const users = snapshot.val()
-                        console.log(users)
+                        // convert snapshot object to array
+                        let users = []
+                        snapshot.forEach(el => {
+                            let user = el.val()
+                            users.push(user)
+                        })
+                        // below did not work - but why?
+                        // forEach on snapshot is different than regular JS forEach 
+                        // snapshot.forEach(el => users.push(el.val()) )
                         const userInfo = users.find((el) => el.uid === user.uid)
-                        console.table(userInfo)
                         this.setState({
                             userInfo,
                             isLoggedIn: true,
@@ -37,7 +43,6 @@ class App extends Component {
             }
         })
     }
-
 
     render() {
         const { firebase } = this.props;
