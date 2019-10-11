@@ -54,9 +54,6 @@ class App extends Component {
                     isLoggedIn={isLoggedIn}
                     firebase={firebase}
                     isAdmin={isAdmin} />
-                <LandingPage
-                    isLoggedIn={isLoggedIn}
-                 />
                 <MainShop
                     firebase={firebase}
                     isLoggedIn={isLoggedIn}
