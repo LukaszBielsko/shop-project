@@ -6,6 +6,8 @@ import CartPage from '../../components/CartPage/CartPage';
 import OrdersPage from '../../components/OrdersPage/OrdersPage';
 import InventoryPage from '../../components/InventoryPage/InventoryPage';
 import ShopPage from '../../components/ShopPage/ShopPage';
+import LoginPage from '../../components/LoginPage/LoginPage';
+import RegisterPage from '../../components/RegisterPage/RegisterPage'
 
 /* TODO clear state on logout - with onAuthStateChanged */
 class MainShop extends Component {
@@ -148,7 +150,7 @@ class MainShop extends Component {
         const product = products[removedProductIndex]
         product.isRemoved = true
         product.inStock = 0
-        /* TODO below can be deleted as product is a reference and not a copy */ 
+        /* TODO below can be deleted as product is a reference and not a copy */
         products[removedProductIndex] = product
         // // save to db and change state
         // // sth should be changed here - dont like the fact that im updating db
@@ -162,20 +164,20 @@ class MainShop extends Component {
         const changedProductIndex = products.findIndex(el => el.id === editedProduct.id)
         products[changedProductIndex] = editedProduct
         //set state and update db
-        this.setState({products})
+        this.setState({ products })
         this.props.firebase.db.ref('products').push(products)
     }
 
     addNewProduct = (newProduct) => {
         const { products } = this.state
         products.push(newProduct)
-        this.setState({products})
+        this.setState({ products })
         this.props.firebase.db.ref('products').push(products)
-    } 
+    }
 
     render() {
         const { orders, products, addedToCart } = this.state
-        const { isLoggedIn, isAdmin } = this.props
+        const { isLoggedIn, isAdmin, firebase } = this.props
 
         return (
             <div>
@@ -203,11 +205,19 @@ class MainShop extends Component {
                                     add={this.addNewProduct}
                                     isAdmin={isAdmin}
                                     products={products}
-                                    remove={this.removeProduct} 
-                                    edit={this.editProduct}/>} />
+                                    remove={this.removeProduct}
+                                    edit={this.editProduct} />} />
                                 : null}
+                            {/* <RegisterPage
+                                firebase={firebase} /> */}
                         </>
-                        : null}
+                        : 
+                        <Route path='/login'
+                            render={() =>
+                                <LoginPage
+                                    firebase={firebase}
+                                    isLoggedIn={isLoggedIn} />
+                        } />}
                     {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}
                     <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} />
                 </Switch>
