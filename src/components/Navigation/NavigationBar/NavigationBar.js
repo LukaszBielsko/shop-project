@@ -17,7 +17,7 @@ const NavBar = (props) => (
 
         {props.isLoggedIn ?
             <>
-                {props.isAdmin ? null :
+               {!props.isAdmin &&
                     <>
                         <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
                         <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
@@ -29,9 +29,9 @@ const NavBar = (props) => (
                         Inventory  
                     </NavLink>
                 }
-                {props.isLoggedIn ?
+                {props.isLoggedIn &&
                     <button onClick={props.firebase.doSignOut}> LOG OUT</button>
-                : null}
+                }
             </>
             : <p>Please log in.</p>
         }
