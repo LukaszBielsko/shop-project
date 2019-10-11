@@ -9,7 +9,7 @@ const Products = (props) => {
                 return <Product
                     isAdmin={props.isAdmin}
                     /* TODO does not work as a unique key */ 
-                    key={product.id} t
+                    key={product.id}
                     productData={product}
                     add={props.add}
                     remove={props.remove}
