@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 
 import classes from './LoginPage.module.css';
 
@@ -13,6 +13,11 @@ class LoginPage extends Component {
 
     handleSubmit = (event) => {
         this.props.firebase.doSignInWithEmailAndPassword(this.state.userName, this.state.password)
+            .then( user => {
+                if (user) {
+                    this.props.history.push('/shop')
+                }
+            })
             .catch(error => console.log(error.code))
         event.preventDefault()
     }
@@ -59,4 +64,4 @@ class LoginPage extends Component {
     }
 };
 
-export default LoginPage;
+export default withRouter(LoginPage)
