@@ -181,9 +181,8 @@ class MainShop extends Component {
 
         return (
             <div>
-                <Switch>
-                    {isLoggedIn ?
-                        <>
+                    {isLoggedIn
+                        ? <Switch>
                             <Route path='/shop'
                                 render={(props) => <ShopPage
                                     products={products}
@@ -208,19 +207,23 @@ class MainShop extends Component {
                                     remove={this.removeProduct}
                                     edit={this.editProduct} />} />
                                 : null}
-                            {/* <RegisterPage
-                                firebase={firebase} /> */}
-                        </>
-                        : 
-                        <Route path='/login'
-                            render={() =>
-                                <LoginPage
-                                    firebase={firebase}
-                                    isLoggedIn={isLoggedIn} />
-                        } />}
+                        </Switch>
+                        : <Switch>
+                            <Route exact path='/'
+                                render={() =>
+                                    <LoginPage
+                                        firebase={firebase}
+                                        isLoggedIn={isLoggedIn} />
+                                } />
+                            <Route path='/register-page'
+                                render={ () => 
+                                    <RegisterPage
+                                        firebase={firebase} />
+                                } />
+                        </Switch>
+                    }
                     {/* TODO: 404 renders only for NOT logged in users and flashes for few seconds for logged ones then disapears*/}
-                    <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} />
-                </Switch>
+                    {/* <Route render={() => <p>404 - nope, nothing here, I'm afraid</p>} /> */}
 
             </div>
         )

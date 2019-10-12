@@ -54,7 +54,6 @@ class LoginPage extends Component {
                         <Link to="/register-page">
                             <button> Register </button>
                         </Link>
-                        {isLoggedIn ? <Redirect to="/shop" /> : null}
                     </form>
                 </div >
             )
