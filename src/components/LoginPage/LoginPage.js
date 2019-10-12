@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import classes from './LoginPage.module.css';
 
@@ -27,8 +27,6 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { isLoggedIn } = this.props
-        if (!isLoggedIn) {
             return (
                 <div className={classes.LoginPage}>
                     <h2>Login</h2>
@@ -57,9 +55,6 @@ class LoginPage extends Component {
                     </form>
                 </div >
             )
-        } else {
-            return <p>Hi. You are logged in!</p>
-        }
     }
 };
 
