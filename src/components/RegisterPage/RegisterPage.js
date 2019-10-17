@@ -11,7 +11,7 @@ class RegisterPage extends Component {
         lastName: '',
         email: '',
         password: '',
-        companyId: ''
+        companyId: 'company-1'
     }
 
     handleSubmit = (event) => {
@@ -57,7 +57,7 @@ class RegisterPage extends Component {
                             onChange={this.handleInput}
                             required />
                     </label>
-                    <select name="companyId" onChange={this.handleInput} >
+                    <select required name="companyId" onChange={this.handleInput} >
                         <option value="company-1">company-1</option>
                         <option value="company-2">company-2</option>
                     </select>
