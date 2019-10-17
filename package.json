@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
+    "date-and-time": "^0.8.1",
+    "firebase": "^6.2.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-modal": "^3.10.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },

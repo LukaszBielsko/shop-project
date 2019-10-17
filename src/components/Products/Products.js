@@ -7,15 +7,19 @@ const Products = (props) => {
         <div>
             {props.products.map((product) => {
                 return <Product
+                    isAdmin={props.isAdmin}
+                    /* TODO does not work as a unique key */ 
                     key={product.id}
                     productData={product}
-                    add={props.add} />
+                    add={props.add}
+                    remove={props.remove}
+                    edit={props.edit} />
             })}
         </div>
     );
 };
 
-export default Products;
+export default Products;                            
 
 
 
