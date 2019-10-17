@@ -15,6 +15,17 @@ class RegisterPage extends Component {
 
     handleSubmit = (event) => {
         this.props.firebase.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
+        debugger
+        this.props.firebase.auth.onAuthStateChanged(user => {
+            console.log(user)
+            if (user){
+                this.setState({uid: user.uid})
+                this.props.firebase.db.ref('users').push(this.state)
+                // redirect to shop
+            }
+        })
+
+        debugger
         event.preventDefault()
     }
 
