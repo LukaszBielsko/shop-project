@@ -39,7 +39,7 @@ class Product extends Component {
         const input = parseInt(event.target.value) || 0
 
         if (input <= 0) {
-            this.setState({ howManyProducts: '', endPrice: 0 });
+            this.setState({ howManyProducts: '', endPrice: 0, disableButton: true });
             return;
         } else if (input > this.props.productData.inStock) {
             alert('Sorry, not enough items in stock.');
