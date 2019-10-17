@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 import Footer from './components/Navigation/Footer/Footer';
-import LandingPage from './containters/LandingPage/LandingPage';
 import NavigationBar from './components/Navigation/NavigationBar/NavigationBar';
 import MainShop from './containters/MainShop/MainShop';
 

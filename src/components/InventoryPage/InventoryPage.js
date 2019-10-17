@@ -52,7 +52,6 @@ class InventoryPage extends Component {
         const name = target.name
         const { ...newProduct } = this.state.newProduct
         newProduct[name] = input
-        console.table(newProduct)
         this.setState({ newProduct })
     }
 
@@ -91,7 +90,7 @@ class InventoryPage extends Component {
 
                     <button onClick={this.closeModal}>Cancel</button>
                     <button onClick={() => {
-                        this.props.add(this.state.newProduct)
+                        add(this.state.newProduct)
                         this.closeModal()
                     }}
                     >
