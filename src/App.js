@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 import Footer from './components/Navigation/Footer/Footer';
-import LandingPage from './containters/LandingPage/LandingPage';
 import NavigationBar from './components/Navigation/NavigationBar/NavigationBar';
 import MainShop from './containters/MainShop/MainShop';
 
@@ -54,9 +53,6 @@ class App extends Component {
                     isLoggedIn={isLoggedIn}
                     firebase={firebase}
                     isAdmin={isAdmin} />
-                <LandingPage
-                    isLoggedIn={isLoggedIn}
-                 />
                 <MainShop
                     firebase={firebase}
                     isLoggedIn={isLoggedIn}

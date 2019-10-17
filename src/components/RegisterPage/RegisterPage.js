@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom';
 
 // create a form 
 // register with email and password
@@ -10,11 +11,20 @@ class RegisterPage extends Component {
         lastName: '',
         email: '',
         password: '',
-        companyId: ''
+        companyId: 'company-1'
     }
 
     handleSubmit = (event) => {
         this.props.firebase.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
+        this.props.firebase.auth.onAuthStateChanged(user => {
+            if (user){
+                this.setState({uid: user.uid})
+                this.props.firebase.db.ref('users').push(this.state)
+                // redirect to shop
+                this.props.history.push('/shop')
+            }
+        })
+
         event.preventDefault()
     }
 
@@ -46,7 +56,7 @@ class RegisterPage extends Component {
                             onChange={this.handleInput}
                             required />
                     </label>
-                    <select name="companyId" onChange={this.handleInput} >
+                    <select required name="companyId" onChange={this.handleInput} >
                         <option value="company-1">company-1</option>
                         <option value="company-2">company-2</option>
                     </select>
@@ -74,4 +84,4 @@ class RegisterPage extends Component {
     }
 }
 
-export default RegisterPage;
+export default withRouter(RegisterPage);

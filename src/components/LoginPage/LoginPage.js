@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import classes from './LoginPage.module.css';
 
@@ -13,6 +13,11 @@ class LoginPage extends Component {
 
     handleSubmit = (event) => {
         this.props.firebase.doSignInWithEmailAndPassword(this.state.userName, this.state.password)
+            .then( user => {
+                if (user) {
+                    this.props.history.push('/shop')
+                }
+            })
             .catch(error => console.log(error.code))
         event.preventDefault()
     }
@@ -22,8 +27,6 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { isLoggedIn } = this.props
-        if (!isLoggedIn) {
             return (
                 <div className={classes.LoginPage}>
                     <h2>Login</h2>
@@ -49,14 +52,10 @@ class LoginPage extends Component {
                         <Link to="/register-page">
                             <button> Register </button>
                         </Link>
-                        {isLoggedIn ? <Redirect to="/shop" /> : null}
                     </form>
                 </div >
             )
-        } else {
-            return <p>Hi. You are logged in!</p>
-        }
     }
 };
 
-export default LoginPage;
+export default withRouter(LoginPage)
