@@ -1,10 +1,11 @@
 import React from 'react';
 
 import Product from './Product/Product';
+import classes from './Products.module.css';
 
 const Products = (props) => {
     return (
-        <div>
+        <div className={classes.Products}>
             {props.products.map((product) => {
                 return <Product
                     isAdmin={props.isAdmin}

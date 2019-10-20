@@ -1,7 +1,12 @@
+.LoginPage {
+    padding: 0 0 20px 60px;
+}
 
+.inputField {
+    width: 180px;
+}
 
 label {
     display: block;
     width: 80px;
 }
-

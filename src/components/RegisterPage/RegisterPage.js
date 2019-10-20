@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom';
 
-// create a form 
-// register with email and password
-// save user to db (with user uid, company, role etc)
+import classes from './RegisterPage.module.css';
+
 class RegisterPage extends Component {
 
     state = {
@@ -37,7 +36,7 @@ class RegisterPage extends Component {
     render() {
         const {firstName, lastName, email, password} = this.state
         return (
-            <>
+            <div className={classes.RegisterPage}>
                 <h4>Pls enter your details</h4>
                 <form onSubmit={this.handleSubmit}>
                     <label>
@@ -79,7 +78,7 @@ class RegisterPage extends Component {
                     </label>
                     <input type="submit" value="Register" />
                 </form>
-            </>
+            </div>
         )
     }
 }

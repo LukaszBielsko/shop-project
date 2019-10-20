@@ -1,0 +1,16 @@
+.RegisterPage {
+    padding: 0 0 20px 60px;
+}
+
+.RegisterPage label {
+    padding: 10 0 10 0px;
+}
+
+.RegisterPage input {
+    width: 180px;
+}
+
+.RegisterPage input[type=submit] {
+    margin-top: 20px;
+    width: 187px;
+}
