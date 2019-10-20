@@ -6,6 +6,21 @@
     display: flex;
 }
 
+.Navbar button {
+    background-color: #8d1818;
+    color: antiquewhite;
+    border-radius: 6px;
+    margin-right: 5vw;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.Navbar button:hover {
+    background-color: transparent;
+    border: 1px solid #8d1818;
+    color: #8d1818;
+}
+
 .navLink {
     margin: 10px;
     margin-left: 10px;
