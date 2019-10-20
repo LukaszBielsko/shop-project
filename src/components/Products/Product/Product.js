@@ -53,7 +53,7 @@ class Product extends Component {
     }
 
     clearInput = () => {
-        this.setState({ howManyProducts: '', disableButton: true })
+        this.setState({ howManyProducts: '', disableButton: true, endPrice: 0 })
     }
 
 
