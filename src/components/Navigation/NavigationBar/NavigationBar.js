@@ -1,15 +1,7 @@
 import React from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-import classes from './NavigationBar.module.css';
-import logo from '../../../assets/printerLogo.ico';
-
-let styles = {
-    color: "green",
-    transform: "scale(1.2)"
-};
-
-
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
 
 const NavBar = (props) => {
 
@@ -19,33 +11,55 @@ const NavBar = (props) => {
     }
 
     return (
-        <div className={classes.Navbar}>
-            <Link to="/" >
-                <img src={logo} alt="printer logo" />
-            </Link>
+        <div>
+            <Navbar color="light" light expand="md">
+                <NavbarBrand>
+                    {/* <Link to="/" >
+                        <img src={logo} alt="printer logo" />
+                    </Link> */}
+                    Printer World
+                </NavbarBrand>
 
-            {props.isLoggedIn ?
-                <>
-                    {!props.isAdmin &&
-                        <>
-                            <NavLink to='/shop' className={classes.navLink} activeStyle={styles}>Shop</NavLink>
-                            <NavLink to='/cart' className={classes.navLink} activeStyle={styles}> Cart</NavLink>
-                        </>
-                    }
-                    <NavLink to='/orders' className={classes.navLink} activeStyle={styles}> Orders</NavLink>
-                    {props.isAdmin &&
-                        <NavLink to='/inventory' className={classes.navLink} activeStyle={styles}>
-                            Inventory
-                        </NavLink>
-                    }
-                    {props.isLoggedIn &&
-                        <button onClick={() => handleLogOut()  }> LOG OUT</button>
-                    }
-                </>
-                : <p>Please log in.</p>
-            }
+                {props.isLoggedIn ?
+                    <Nav>
+                        {!props.isAdmin &&
+                            <>
+                                <NavItem>
+                                    <NavLink>
+                                        <Link to='/shop' >Shop</Link>
+                                    </NavLink>
+                                </NavItem>
+                                <Link to='/cart' >Cart</Link>
+                            </>
+                        }
+                        <NavItem>
+                            <NavLink>
+                                <Link to='/orders'>Orders</Link>
+                            </NavLink>
+                        </NavItem>
+                        {props.isAdmin &&
+                            <NavItem >
+                                <NavLink>
+                                    <Link to='/inventory'>Inventory</Link>
+                                </NavLink>
+                            </NavItem>
+                        }
+                        {props.isLoggedIn &&
+                            <NavItem className="log-out" >
+                                <Button
+                                    color="secondary"
+                                    onClick={() => handleLogOut()} >Log out
+                                </Button>
+                            </NavItem>
+                        }
+                    </Nav>
+                    : <p>Please log in.</p>
+                }
+            </Navbar>
 
-        </div>)
+        </div>
+
+    )
 };
 
 export default withRouter(NavBar);
