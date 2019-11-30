@@ -29,7 +29,11 @@ const NavBar = (props) => {
                                         <Link to='/shop' >Shop</Link>
                                     </NavLink>
                                 </NavItem>
-                                <Link to='/cart' >Cart</Link>
+                                <NavItem>
+                                    <NavLink>
+                                        <Link to='/cart' >Cart</Link>
+                                    </NavLink>
+                                </NavItem>
                             </>
                         }
                         <NavItem>

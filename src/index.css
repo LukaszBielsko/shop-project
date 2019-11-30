@@ -13,3 +13,20 @@ code {
 .log-out {
   margin-left: 50vw;
 }
+
+.card-card {
+  width: 220px;
+  padding: 10px;
+  margin: 20px;
+}
+
+.quantity-input{
+  width: 50px;
+  height: 27px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: gray 1px solid;
+  margin-left: 4px;
+  margin-bottom: 5px;
+}
