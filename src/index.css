@@ -14,13 +14,22 @@ code {
   margin-left: 50vw;
 }
 
-.card-card {
-  width: 220px;
+.product-card {
+  width: 250px;
   padding: 10px;
   margin: 20px;
+  border-radius: 50px;
+  box-shadow: 5px 5px 13px 4px lightgrey;
+  background-color: rgba(187, 212, 228, 0.103) !important;
 }
 
-.quantity-input{
+.my-card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  background-color: rgba(0, 0, 0, .03);
+  margin-bottom: 20px;
+}
+
+.quantity-input {
   width: 50px;
   height: 27px;
   border-top: none;
@@ -29,4 +38,21 @@ code {
   border-bottom: gray 1px solid;
   margin-left: 4px;
   margin-bottom: 5px;
+  background-color: rgba(187, 212, 228, 0.103) !important;
+  border-radius: 3px;
+}
+
+.order {
+  width: 300px;
+  margin: 25px;
+  padding: 15px;
+  line-height: 2;
+  border-radius: 10px;
+  box-shadow: 5px 5px 13px 4px lightgrey;
+  background-color: rgba(187, 212, 228, 0.103) !important;
+}
+
+.orders {
+  display: flex;
+  flex-direction: row;
 }

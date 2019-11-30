@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+    Card, CardTitle, CardHeader
 } from 'reactstrap';
 
 import AdminButtons from '../../Admin/AdminButtons/AdminButtons';
@@ -39,7 +38,7 @@ class Product extends Component {
     }
 
     quantityInputHandler = (event) => {
-    // without || 0 input would evaluate to NaN, then endPrice would be NaN as well
+        // without || 0 input would evaluate to NaN, then endPrice would be NaN as well
         const input = parseInt(event.target.value) || 0
 
         if (input <= 0) {
@@ -71,42 +70,40 @@ class Product extends Component {
         if (!isAdmin && product.isRemoved) return null
 
         return (
-            <Card className="card-card">
-                    <CardTitle>
-                         <h4>
-                        {product.type}  : {product.name}
-                         </h4>
-                    </CardTitle>
-                    <p>Availability: {isAdmin ? inStock : availability}   </p>
-                    <p> Price per unit: {product.price} </p>
-                    {isAdmin ?
-                        <>
-                            <p>{product.isRemoved ? 'Status: removed' : 'Status: in stock'}</p>
-                            <AdminButtons product={product} remove={remove} edit={edit} />
-                        </>
-                        :
-                        <>
-                            <div>
-                                Quantity:
+            <Card className="product-card">
+                <h4 className="my-card-header">
+                    {product.type}  : {product.name}
+                </h4>
+                <p>Availability: {isAdmin ? inStock : availability}   </p>
+                <p> Price per unit: {product.price} </p>
+                {isAdmin ?
+                    <>
+                        <p>{product.isRemoved ? 'Status: removed' : 'Status: in stock'}</p>
+                        <AdminButtons product={product} remove={remove} edit={edit} />
+                    </>
+                    :
+                    <>
+                        <div>
+                            Quantity:
                                 <input className="quantity-input"
-                                    value={howManyProducts.toString()}
-                                    type="number"
-                                    onChange={this.quantityInputHandler} >
-                                </input>
-                            </div>
-                            <p> Price for all items: {endPrice} </p>
-                            <button
-                                onClick={() => {
-                                    // arrow function did not work here
-                                    this.props.add(product.id, howManyProducts);
-                                    this.clearInput();
-                                }}
-                                disabled={disableButton}
-                                min="0">
-                                Add to cart
+                                value={howManyProducts.toString()}
+                                type="number"
+                                onChange={this.quantityInputHandler} >
+                            </input>
+                        </div>
+                        <p> Price for all items: {endPrice} </p>
+                        <button
+                            onClick={() => {
+                                // arrow function did not work here
+                                this.props.add(product.id, howManyProducts);
+                                this.clearInput();
+                            }}
+                            disabled={disableButton}
+                            min="0">
+                            Add to cart
                             </button>
-                        </>
-                    }
+                    </>
+                }
             </Card>
         )
     }
