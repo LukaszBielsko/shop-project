@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from './Footer.module.css';
-import logo from '../../../assets/printerLogo.ico'
 
 const footer = (props) => (
-    <div className={classes.Footer}>
-        <img className={classes.logoImg} src={logo} alt="printer logo"/>
+    <div className="footer">
+        <div className="footer-item"> Contact </div>
+        <div className="footer-item"> Help</div>
+        <div className="footer-item"> Other</div>
          </div>
 );
 

@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import {
+    Card, CardTitle, CardHeader
+} from 'reactstrap';
+
 import AdminButtons from '../../Admin/AdminButtons/AdminButtons';
 
-import classes from './Product.module.css';
 class Product extends Component {
 
     state = {
@@ -67,10 +70,11 @@ class Product extends Component {
         if (!isAdmin && product.isRemoved) return null
 
         return (
-            <div className={classes.Product}>
-                <p> Product type: {product.type}</p>
+            <Card className="product-card">
+                <h4 className="my-card-header">
+                    {product.type}  : {product.name}
+                </h4>
                 <p>Availability: {isAdmin ? inStock : availability}   </p>
-                <p> Product name: {product.name}</p>
                 <p> Price per unit: {product.price} </p>
                 {isAdmin ?
                     <>
@@ -81,7 +85,7 @@ class Product extends Component {
                     <>
                         <div>
                             Quantity:
-                            <input
+                                <input className="quantity-input"
                                 value={howManyProducts.toString()}
                                 type="number"
                                 onChange={this.quantityInputHandler} >
@@ -97,10 +101,10 @@ class Product extends Component {
                             disabled={disableButton}
                             min="0">
                             Add to cart
-                        </button>
+                            </button>
                     </>
                 }
-            </div>
+            </Card>
         )
     }
 }
